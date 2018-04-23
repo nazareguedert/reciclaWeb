@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	  
+		<title>Cadastro Doação</title>
+	
+
+		
+	</h:head>
+	
+	<h:body class="background">
+	
+	#{indexController.validar()}
+	
+		<div class="container full-width col s12 m12 l12">
+			<fieldset class="row">
+						<legend>Detalhes Doação</legend>
+	
+			<h:form id="formulario"> <!-- action="index.xhtml?faces-redirect=true" --> 
+			
+					<div class="container col s12 m12 l4">
+								<fieldset class="row">
+								
+<!-- 									<legend>Dados de Identificação</legend> -->
+									
+										<div class="input-field col s12 m12 l12">
+											<h:inputText disabled="true" value="#{detalhesColetaController.doacao.titulo}" />
+											<label for="titulo">Título</label>
+										</div>
+										<div class="input-field col s12 m12 l12">
+											<h:inputText disabled="true" value="#{detalhesColetaController.doacao.descricao}" />
+											<label for="titulo">Descrição</label>
+										</div>
+																			
+										<fieldset class="row col s12 m12 l12">
+											<legend>Material</legend>
+											
+													<div class="input-field col s12 m12 l12">
+														<h:inputText disabled="true" disable="true" value="#{detalhesColetaController.doacao.material.nome}" />	
+														<label for="tipo_material">Tipo do Material</label>			
+													</div>
+													
+													<div class="input-field col s12 m12 l12">
+														<h:inputText disabled="true" value="#{detalhesColetaController.doacao.quantia}" />
+														<label for="qtd_material">Quantia</label>
+													</div>
+							
+										</fieldset>
+										
+								</fieldset>
+					
+					</div>
+					
+					<div class="container full-width col s12 m12 l8">
+								<fieldset class="row">
+								
+									<legend>Endereço:</legend>
+									
+										
+									<div class="input-field col s12 m7 l3">
+										<h:inputText disabled="true" id="pais" value="#{detalhesColetaController.doacao.endereco.bairro.municipio.estado.pais.nome}" />
+										<label for="pais">País</label>
+										
+									</div>
+								
+									<div class="input-field col s12 m5 l3">
+										<h:inputText disabled="true" id="cep" value="#{detalhesColetaController.doacao.endereco.cep}" />
+										<label for="cep">CEP</label>
+									</div>
+
+									<div class="input-field col s12 m12 l6">
+										<h:inputText disabled="true" id="estado" value="#{detalhesColetaController.doacao.endereco.bairro.municipio.estado.nome}" />												
+										<label for="estado">Estado</label>
+									</div>
+										
+									
+									
+									
+									<div class="input-field col s12 m6 l6">
+										<h:inputText disabled="true" value="#{detalhesColetaController.doacao.endereco.bairro.municipio.nome}" />												
+										<label for="municipio">Município</label>
+									</div>
+								
+									<div class="input-field col s12 m6 l6">
+										<h:inputText disabled="true" value="#{detalhesColetaController.doacao.endereco.bairro.nome}" />
+										<label for="bairro">Bairro</label>
+											
+									</div>
+
+									<fieldset class="row col s12 m12 l12">
+										<div class="input-field row col s12 m5 l4">
+											<h:inputText disabled="true" value="#{detalhesColetaController.doacao.endereco.logradouro.tipoLogradouro.nome}" />
+											<label for="tipo-logradouro">Tipo Logradouro</label>
+										</div>
+										
+										<div class="input-field col s12 m7 l8">
+											<h:inputText disabled="true" value="#{detalhesColetaController.doacao.endereco.logradouro.nome}" />
+											<label for="nome_logradouro">Logradouro</label>
+										</div>
+									
+										
+										<div class="input-field col s12 m9 l9">
+											<h:inputText disabled="true" value="#{detalhesColetaController.doacao.endereco.complemento}" />
+											<label for="complemento">Complemento</label>
+										</div>
+										
+										<div class="input-field col s12 m3 l3">
+											<h:inputText disabled="true" value="#{detalhesColetaController.doacao.endereco.numero}" />
+											<label for="numero_endereco">Número</label>
+										</div>
+									</fieldset>
+									
+								</fieldset>
+					</div>
+					
+
+			
+						<div class="col s12 m12 l12 center">
+								<h:commandButton class="btn waves-effect blue-grey white-text" value="Voltar" 
+								actionListener="#{indexController.setCentro('pontos_coleta.xhtml')}">
+									<f:ajax event="action" listener="#{cadastroDoacaoController.recarregar}" />
+								</h:commandButton>
+			
+						</div>
+			</h:form>
+			</fieldset>
+		</div>		
+
+	</h:body>
+
+</html>

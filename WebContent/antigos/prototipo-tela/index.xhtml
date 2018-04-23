@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+		<title>RecilAPP Landing Page</title>
+	
+			<!-- CSS  -->
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+			<!-- Import materialize.css -->
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+			<link href="/rex/assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+	</head>
+	
+	<body class="background">
+		<div class="navbar-fixed">
+		<nav class="teal darken-3" role="navigation">
+			<div class="nav-wrapper container">
+				<a id="logo-container" href="#" class="brand-logo">RecilAPP</a>
+				
+				<ul class="right hide-on-med-and-down">
+					<li><a href="/rex/home.xhtml">Home</a></li>
+					<li><a href="/rex/quem-somos.xhtml">Quem Somos</a></li>
+					<li><a href="#">Reciclagem</a></li>
+					<li><a href="#">Recursos</a></li>
+					<li><a href="#">Pontos de Coleta</a></li>
+					<li><a href="#">Login</a></li>
+					<li><a href="#">#{testeController.verificaLogin()}</a></li>
+					<li><a href="#">#{testeController.nome}</a></li>
+				</ul>
+				
+				<a href="#" data-activates="nav-mobile" class="button-collapse">
+					<i class="material-icons">menu</i>
+				</a>
+			  
+			</div>
+		</nav>
+		</div>
+	  		<ul id="nav-mobile" class="side-nav">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Quem Somos</a></li>
+					<li><a href="#">Reciclagem</a></li>
+					<li><a href="#">Recursos</a></li>
+					<li><a href="#">Pontos de Coleta</a></li>
+					<li><a href="#">Login</a></li>
+				</ul>
+
+
+		 <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+<!-- 		 <div w3-include-html="home.xhtml"> -->
+		 	<div w3-include-html="#{centro != null ? centro : 'home.xhtml'}">
+		 </div>
+		 
+		<script>
+			w3.includeHTML();
+		</script>
+
+		<footer class="page-footer teal darken-4">
+		  <div class="container">
+		    <div class="row">
+		      <div class="col l6 s12">
+		        <h5 class="white-text">Você ainda mais presente em um mundo de boas relações</h5>
+		        <p class="grey-text text-lighten-4">Somos uma equipe realizando um projeto que nasce para conclusão do curso com intenção de expandir ao mercado e melhorar a qualidade de vida tanto para quem possui muitos materiais a doar quanto aos profissionais do ramo.</p>
+				<p class="grey-text text-lighten-4">Autores: #{autoria.autores}</p>
+		
+		      </div>
+		      <div class="col l3 s12">
+		        <h5 class="white-text">Settings</h5>
+		        <ul>
+		          <li><a class="white-text" href="#!">Link 1</a></li>
+		          <li><a class="white-text" href="#!">Link 2</a></li>
+		          <li><a class="white-text" href="#!">Link 3</a></li>
+		          <li><a class="white-text" href="#!">Link 4</a></li>
+		        </ul>
+		      </div>
+		      <div class="col l3 s12">
+		        <h5 class="white-text">Connect</h5>
+		        <ul>
+		          <li><a class="white-text" href="#!">Link 1</a></li>
+		          <li><a class="white-text" href="#!">Link 2</a></li>
+		          <li><a class="white-text" href="#!">Link 3</a></li>
+		          <li><a class="white-text" href="#!">Link 4</a></li>
+		        </ul>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="footer-copyright teal darken-3">
+		    <div class="container">
+		    <p>Made by <a class="yellow-text text-lighten-3" href="http://materializecss.com">Materialize</a></p>
+		    <p>on <a class="orange-text text-lighten-3" href="http://materializecss.com/templates/starter-template/preview.html">Starter Template</a></p>
+		    </div>
+	
+		    </div>
+		  
+		</footer>
+	
+	
+	
+	<!--Import jQuery before materialize.js-->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js">
+	</script>
+	<!-- Compiled and minified JavaScript -->
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js">
+	</script>
+	<!--  Scripts-->
+		<script src="/rex/assets/js/init.js"></script>
+	
+	
+	</body>
+</html>

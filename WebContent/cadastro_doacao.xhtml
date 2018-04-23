@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+		<title>Cadastro Doação</title>
+	</h:head>
+	
+	<h:body class="background">
+	
+	#{indexController.validar()}
+	
+		<div class="container full-width col s12 m12 l12">
+			<fieldset class="row">
+						<legend>Cadastro de Doação</legend>
+	
+			<h:form id="formulario"> <!-- action="index.xhtml?faces-redirect=true" --> 
+			
+					<ul id="tabs-swipe-demo" class="tabs background">
+						<li class="tab col s6 m6 l6"><a class="active" href="#tab-endereco">Endereço</a></li>
+						<li class="tab col s6 m6 l6"><a href="#tab-material">Material</a></li>
+					</ul>
+
+					<div id="tab-endereco" class="container full-width col s12 m12 l12">
+								<fieldset class="row">
+								
+									<legend>Dados Gerais:</legend>
+									
+									
+									<div class="col s12 m12 l12 row">
+										<div class="row col s12 m7 l3 background">
+											<label for="pais" class="col s12 m12 l12">País</label>
+											<h:selectOneMenu id="pais" value="#{cadastroDoacaoController.doacao.endereco.bairro.municipio.estado.pais}" 
+											converter="paisConverter" class="browser-default col s12 m12 l12 background z-depth-1">
+											
+												<f:selectItem itemValue="#{null}" itemLabel="#{'Selecione'}" noSelectionOption="true" />
+												<f:selectItems value="#{cadastroDoacaoController.paises}"
+													var="item" itemValue="#{item}" itemLabel="#{item.nome}"  />
+												<f:ajax event="change" listener="#{cadastroDoacaoController.defineEstados}" render="estado municipio bairro" />
+											</h:selectOneMenu>
+										</div>
+									
+									
+
+
+									<div class="input-field col s12 m5 l3">
+										<h:inputText id="cep" name="cep" type="text" class="validate" required="required"
+										value="#{cadastroDoacaoController.doacao.endereco.cep}"	maxlength="9" onkeypress="return mascaraGenerica(event, this, '#####-###');">
+											<f:ajax event="change" />
+										</h:inputText>
+											<label for="cep">CEP</label>
+									</div>
+	
+									<div class="col s12 m12 l6">
+										<label for="estado" class="col s12 m12 l12">Estado</label>
+										<h:selectOneMenu id="estado" value="#{cadastroDoacaoController.doacao.endereco.bairro.municipio.estado}"
+										converter="estadoConverter" class="browser-default col s12 m12 l12 background z-depth-1">
+										
+											<f:selectItem itemValue="#{null}" itemLabel="#{'Selecione'}" noSelectionOption="true" />
+											<f:selectItems value="#{cadastroDoacaoController.estados}"
+												var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+											<f:ajax event="change" listener="#{cadastroDoacaoController.defineMunicipios}" render="municipio bairro" />
+										</h:selectOneMenu>
+											
+									</div>
+									
+									
+									</div>
+									
+									<div class="col s12 m12 l12 row">
+									
+									<div class="col s12 m6 l6 row">
+										<label for="municipio" class="col s12 m12 l12">Município</label>
+										<h:selectOneMenu id="municipio" value="#{cadastroDoacaoController.doacao.endereco.bairro.municipio}"
+										converter="municipioConverter" required="true" class="browser-default col s12 m12 l12 background z-depth-1">
+										
+											<f:selectItem itemValue="#{null}" itemLabel="#{'Selecione'}" noSelectionOption="true" />
+											<f:selectItems value="#{cadastroDoacaoController.municipios}"
+												var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+											<f:ajax event="change" listener="#{cadastroDoacaoController.defineBairros}" render="bairro" />
+										</h:selectOneMenu>
+											
+									</div>
+									
+									<div class="col s12 m6 l6 row">
+										<label for="bairro" class="col s12 m12 l12">Bairro</label>
+										<h:selectOneMenu id="bairro" value="#{cadastroDoacaoController.doacao.endereco.bairro}"
+										converter="bairroConverter" class="browser-default col s12 m12 l12 background z-depth-1">
+											<f:selectItem itemValue="#{null}" itemLabel="#{'Selecione'}" />
+											<f:selectItems value="#{cadastroDoacaoController.bairros}"
+												var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+											<f:ajax event="change" />
+										</h:selectOneMenu>
+											
+									</div>
+									</div>
+									
+									<div class="col s12 m12 l12 row">
+									<div class="row col s12 m5 l4">
+										<label for="tipo-logradouro" class="col s12 m12 l12">Tipo Logradouro</label>
+										<h:selectOneMenu id="tipo-logradouro" value="#{cadastroDoacaoController.doacao.endereco.logradouro.tipoLogradouro}"
+										converter="tipoLogradouroConverter" class="browser-default col s12 m12 l12 background z-depth-1">
+											
+											<f:selectItem itemValue="#{null}" itemLabel="#{'Selecione'}" noSelectionOption="true" />
+											<f:selectItems value="#{cadastroDoacaoController.tiposLogradouro}"
+												var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+											<f:ajax event="change" />
+										</h:selectOneMenu>
+											
+									</div>
+									
+									<div class="input-field col s12 m7 l8">
+										<h:inputText id="nome_logradouro" name="nome_logradouro" type="text" class="validate" required="required"
+										value="#{cadastroDoacaoController.doacao.endereco.logradouro.nome}"	maxlength="50" onkeypress="mascara(this,capitalizer)">
+											<f:ajax event="change" />
+										</h:inputText>
+											<label for="nome_logradouro">Logradouro</label>
+									</div>
+									
+									</div>
+									
+									
+									<div class="input-field col s12 m9 l9">
+										<h:inputText id="complemento" name="complemento" type="text" class="validate" required="required"
+										value="#{cadastroDoacaoController.doacao.endereco.complemento}"	maxlength="50" onkeypress="mascara(this,capitalizer)">
+											<f:ajax event="change" />
+										</h:inputText>
+											<label for="complemento">Complemento</label>
+									</div>
+									
+									<div class="input-field col s12 m3 l3">										
+										<h:inputText id="numero_endereco" name="numero_endereco" type="text" class="validate" required="required"
+										value="#{cadastroDoacaoController.doacao.endereco.numero}"	
+										maxlength="5" onkeypress="return mascaraGenerica(event, this, '#####');">
+											<f:ajax event="change" />
+										</h:inputText>
+											<label for="numero_endereco">Número</label>
+									</div>
+									
+									
+								</fieldset>
+					</div>
+					<div id="tab-material" class="container full-width col s12 m12 l12">
+								<fieldset class="row">
+								
+									<legend>Dados de Identificação</legend>
+									
+										<div class="input-field col s12 m12 l12">
+											<h:inputText id="titulo" name="titulo" type="text" class="validate" required="required"
+											value="#{cadastroDoacaoController.doacao.titulo}" maxlength="25" onkeypress="mascara(this,capitalizer)">
+												<f:ajax event="change" />
+											</h:inputText>
+												<label for="titulo">Título</label>
+										</div>
+										<div class="col s12 m12 l12">
+												<label for="titulo" class="col s12 m12 l12">Descrição</label>
+											<h:inputTextarea id="descricao" name="descricao" type="text" class="validate" required="required"
+											value="#{cadastroDoacaoController.doacao.descricao}" maxlength="290">
+												<f:ajax event="change" />
+											</h:inputTextarea>
+										</div>
+																			
+										<fieldset class="row col s12 m12 l12">
+											<legend>Material</legend>
+												
+												
+													<div class="row col s12 m6 l6">
+														<label for="tipo_material" class="col s12 m12 l12">Tipo do Material</label>			
+														<h:selectOneMenu id="tipo_material" name="tipo_material" value="#{cadastroDoacaoController.doacao.material}"
+														converter="materialConverter" class="browser-default col s12 m12 l12 background z-depth-1">
+															
+															<f:selectItem itemValue="#{null}" itemLabel="#{'Selecione'}" noSelectionOption="true" />
+															<f:selectItems value="#{cadastroDoacaoController.tiposMateriais}"
+																var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+															<f:ajax event="change" />
+														</h:selectOneMenu>
+														
+															
+													</div>
+													
+													<div class="input-field col s12 m6 l6">
+														<h:inputText id="qtd_material" name="qtd_material" type="text" class="validate" required="required"
+														value="#{cadastroDoacaoController.doacao.quantia}"	
+														maxlength="3" onkeypress="return mascaraGenerica(event, this, '###');">
+															<f:ajax event="change" />
+														</h:inputText>
+															<label for="qtd_material">Quantia</label>
+													</div>
+							
+										</fieldset>
+										
+								</fieldset>
+					
+					</div>
+					
+						<div class="col s12 m12 l12 center">
+							<h:outputLabel id="mensagem" value="#{cadastroDoacaoController.mensagem.saida}" />
+						</div>
+			
+						<div class="col s12 m12 l12 center">
+								<h:commandButton class="btn waves-effect grey darken-2 white-text" onclick="if (! confirm('Deseja salvar?')) return false"
+								actionListener="#{cadastroDoacaoController.salvarDoacao()}" value="Salvar">
+									<f:ajax event="action" render="mensagem" />
+								</h:commandButton>
+								<h:commandButton class="btn waves-effect grey darken-2 white-text" value="Novo" 
+								actionListener="#{cadastroDoacaoController.construir}">
+									<f:ajax event="action" listener="#{cadastroDoacaoController.recarregar()}" />
+								</h:commandButton>
+								<h:commandButton class="btn waves-effect grey darken-2 white-text" value="Início" 
+								actionListener="#{indexController.setCentro('landing_page.xhtml')}">
+									<f:ajax event="action" listener="#{cadastroDoacaoController.recarregar}" />
+								</h:commandButton>
+								<h:commandButton class="btn waves-effect grey darken-2 white-text" value="Excluir" onclick="if (! confirm('Deseja apagar?')) return false"
+								actionListener="#{cadastroDoacaoController.excluir}" rendered="#{cadastroDoacaoController.doacao.id ne null}">
+									<f:ajax event="action" listener="#{cadastroDoacaoController.recarregar}" />
+								</h:commandButton>
+			
+						</div>
+				</h:form>
+			</fieldset>
+		</div>		
+
+	</h:body>
+
+</html>

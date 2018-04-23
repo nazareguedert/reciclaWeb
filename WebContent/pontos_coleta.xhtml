@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+	
+	<title>Pontos de Coleta</title>
+</h:head>
+
+<h:body class="background">
+	
+	#{indexController.validar()}
+	
+		<div class="container full-width col s12 m12 l12">
+		<!-- 		<fieldset class="row"> -->
+		<!-- 						<legend>Pontos de Coleta</legend> -->
+
+
+		<h:form id="teste" method="post">
+
+			<ul id="tabs-swipe-demo" class="tabs background">
+				<li class="tab col s12 m12 l12"><a class="active"
+					href="#tab-endereco"></a></li>
+				<!-- 					<li class="tab col s6 m6 l6"><a href="#tab-material">Material</a></li> -->
+			</ul>
+
+			<div id="tab-endereco" class="container full-width col s12 m12 l12">
+
+				<div class="row col s12 m12 l12 center">
+					<label for="material" class="col s12 m12 l12"></label>
+					<h:selectOneMenu id="material"
+						value="#{pontosColetaController.filtro.material}"
+						class="browser-default col s12 m12 l12 amber lighten-4"
+						required="true">
+						<f:selectItem itemValue="#{' '}" itemLabel="#{'Material'}" />
+						<f:selectItems value="#{pontosColetaController.tiposMateriais}"
+							var="item" itemValue="#{item.nome}" itemLabel="#{item.nome}" />
+						<f:ajax event="change"
+							listener="#{pontosColetaController.consultarPorFiltro()}"
+							render="tabelaDoacoes" />
+					</h:selectOneMenu>
+				</div>
+
+				<div class="row col s12 m12 l12 center">
+					<label for="bairro"></label>
+					<h:selectOneMenu id="bairro"
+						value="#{pontosColetaController.filtro.bairro}"
+						class="browser-default col s12 m12 l12 amber lighten-4"
+						required="true">
+						<f:selectItem itemValue="#{' '}" itemLabel="#{'Bairro'}" />
+						<f:selectItems value="#{pontosColetaController.bairros}"
+							var="item" itemValue="#{item.nome}" itemLabel="#{item.nome}" />
+						<f:ajax event="change"
+							listener="#{pontosColetaController.consultarPorFiltro()}"
+							render="tabelaDoacoes" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+			<div class="input-field col s12 m12 l12">
+
+				<h:dataTable id="tabelaDoacoes" class="striped highlight"
+					value="#{pontosColetaController.pontosColeta}" var="item">
+
+					<h:column>
+						<f:facet name="header">Tipo</f:facet>    				
+								#{item.titulo}
+							</h:column>
+
+					<h:column>
+						<f:facet name="header">Descrição</f:facet>    				
+								#{item.descricao}
+							</h:column>
+
+					<h:column>
+						<f:facet name="header">Detalhes</f:facet>
+						
+						<h:commandButton disabled="false" value="O" immediate="true"
+							class="btn waves-effect grey darken-2 white-text"
+							actionListener="#{indexController.setCentro('detalhes_coleta.xhtml')}">
+
+							<f:setPropertyActionListener
+								value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
+								target="#{detalhesColetaController.doacao}" />
+
+							<f:ajax event="action"
+								listener="#{pontosColetaController.recarregar}" />
+
+						</h:commandButton>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Editar</f:facet>
+						<h:commandButton value="Editar" 
+							immediate="true"
+							type="button"
+							class="btn waves-effect orange darken-2 white-text"
+							disabled="#{pontosColetaController.outroDoador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}"
+							actionListener="#{indexController.setCentro('cadastro_doacao.xhtml')}">
+
+							
+							<f:setPropertyActionListener
+								value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
+								target="#{cadastroDoacaoController.doacao}" />
+
+							<f:ajax event="action"
+								listener="#{pontosColetaController.recarregar}" />
+
+						</h:commandButton>
+					</h:column>
+
+					<h:column rendered="#{pontosColetaController.podeColetar()}">
+						<f:facet name="header">Coletar</f:facet>
+						<h:commandButton value="V" immediate="true"
+							class="btn waves-effect grey darken-2 white-text"
+							onclick="if (! confirm('Deseja coletar?')) return false"
+							disabled="#{pontosColetaController.doador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}"
+							actionListener="#{pontosColetaController.finalizarDoacao(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getId())}">
+						</h:commandButton>
+					</h:column>
+
+				</h:dataTable>
+
+			</div>
+			<br></br>
+			<div class="col s12 m12 l12 center">
+				<h:commandButton class="btn waves-effect grey darken-2 white-text"
+					value="Início"
+					actionListener="#{indexController.setCentro('landing_page.xhtml')}">
+					<f:ajax event="action"
+						listener="#{pontosColetaController.recarregar}" />
+				</h:commandButton>
+			</div>
+		</h:form>
+		<!-- 		</fieldset> -->
+	</div>
+			<br></br>
+</h:body>
+</html>
