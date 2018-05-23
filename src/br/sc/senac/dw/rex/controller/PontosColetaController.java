@@ -37,6 +37,16 @@ public class PontosColetaController implements Serializable {
 	private List<AnuncioVO> anuncios;
 
 	private List<Doacao> pontosColeta;
+	private List<Doacao> pontosSelecionados;
+	public List<Doacao> getPontosSelecionados() {
+		return pontosSelecionados;
+	}
+
+	public void setPontosSelecionados(List<Doacao> pontosSelecionados) {
+		this.pontosSelecionados = pontosSelecionados;
+	}
+
+
 	private AnuncioBO anuncioBO;
 	private DoacaoDAO doacaoDAO;
 

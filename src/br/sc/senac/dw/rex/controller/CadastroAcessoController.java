@@ -186,5 +186,23 @@ public class CadastroAcessoController implements Serializable {
 		}
 
 	}
+	
+	public boolean logadoEColetor () {
+		
+		if (this.logado && this.getUsuario().getNivelAcesso().getNome().equals("Coletor")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
+	
+public boolean logadoEDoador () {
+		
+		if (this.logado && this.getUsuario().getNivelAcesso().getNome().equals("Doador")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -8,8 +8,9 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"/>
 	
-	<title>Onde Coletar</title>
+	<title>Pontos de Coleta</title>
 </h:head>
 
 <h:body class="background">
@@ -18,7 +19,7 @@
 	
 		<div class="container full-width col s12 m12 l12">
 		<!-- 		<fieldset class="row"> -->
-		<!-- 						<legend>Onde Coletar</legend> -->
+		<!-- 						<legend>Pontos de Coleta</legend> -->
 
 
 		<h:form id="teste" method="post">
@@ -35,7 +36,7 @@
 					<label for="material" class="col s12 m12 l12"></label>
 					<h:selectOneMenu id="material"
 						value="#{pontosColetaController.filtro.material}"
-						class="browser-default col s12 m12 l12 background grey"
+						class="browser-default col s12 m12 l12 amber lighten-4"
 						required="true">
 						<f:selectItem itemValue="#{' '}" itemLabel="#{'Material'}" />
 						<f:selectItems value="#{pontosColetaController.tiposMateriais}"
@@ -50,7 +51,7 @@
 					<label for="bairro"></label>
 					<h:selectOneMenu id="bairro"
 						value="#{pontosColetaController.filtro.bairro}"
-						class="browser-default col s12 m12 l12 background grey"
+						class="browser-default col s12 m12 l12 amber lighten-4"
 						required="true">
 						<f:selectItem itemValue="#{' '}" itemLabel="#{'Bairro'}" />
 						<f:selectItems value="#{pontosColetaController.bairros}"
@@ -79,8 +80,8 @@
 					<h:column>
 						<f:facet name="header">Detalhes</f:facet>
 						
-						<h:commandButton disabled="false" value="O" immediate="true"
-							class="btn waves-effect teal darken-3 white-text"
+						<h:commandButton disabled="false" value="Detalhes" immediate="true"
+							class="waves-effect grey darken-2 white-text btn-small"
 							actionListener="#{indexController.setCentro('detalhes_coleta.xhtml')}">
 
 							<f:setPropertyActionListener
@@ -95,13 +96,14 @@
 
 					<h:column>
 						<f:facet name="header">Editar</f:facet>
-						<i class="small material-icons">edit</i>
-						<h:commandButton value="" immediate="true"
-							
-							class="btn waves-effect lime darken-4 white-text"
+						<h:commandButton value="Editar" 
+							immediate="true"
+							type="button"
+							class="waves-effect orange darken-2 white-text btn-small"
 							disabled="#{pontosColetaController.outroDoador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}"
 							actionListener="#{indexController.setCentro('cadastro_doacao.xhtml')}">
 
+							
 							<f:setPropertyActionListener
 								value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
 								target="#{cadastroDoacaoController.doacao}" />
@@ -114,8 +116,8 @@
 
 					<h:column rendered="#{pontosColetaController.podeColetar()}">
 						<f:facet name="header">Coletar</f:facet>
-						<h:commandButton value="V" immediate="true"
-							class="btn waves-effect light-blue darken-4 white-text"
+						<h:commandButton value="Coletar" immediate="true"
+							class="btn waves-effect grey darken-2 white-text"
 							onclick="if (! confirm('Deseja coletar?')) return false"
 							disabled="#{pontosColetaController.doador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}"
 							actionListener="#{pontosColetaController.finalizarDoacao(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getId())}">
@@ -127,7 +129,7 @@
 			</div>
 			<br></br>
 			<div class="col s12 m12 l12 center">
-				<h:commandButton class="btn waves-effect blue-grey white-text"
+				<h:commandButton class="waves-effect grey darken-2 white-text btn-small"
 					value="Início"
 					actionListener="#{indexController.setCentro('landing_page.xhtml')}">
 					<f:ajax event="action"

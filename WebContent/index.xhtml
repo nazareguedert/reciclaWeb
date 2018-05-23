@@ -9,7 +9,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
 		
-		<title>ReciclAPP Index Page</title>
+		
+		<title>ReciclaWeb Index Page</title>
 	
 			<!-- CSS  -->
 			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
@@ -26,7 +27,7 @@
 					
 					<h:form>
 					
-						<h:commandLink actionListener="#{indexController.setCentro('landing_page.xhtml')}" value="ReciclAPP" 
+						<h:commandLink actionListener="#{indexController.setCentro('landing_page.xhtml')}" value="ReciclaWeb" 
 						id="logo-container" class="brand-logo" />
 					
 					<ul class="right hide-on-med-and-down">
@@ -40,7 +41,15 @@
 						</li>
 						<li>
 							<h:commandLink actionListener="#{indexController.setCentro('pontos_coleta.xhtml')}" 
-							value="Pontos de Coleta" rendered="#{cadastroAcessoController.logado}" />
+							value="Onde Coletar" rendered="#{cadastroAcessoController.logadoEColetor()}" />
+						</li>
+						<li>
+							<h:commandLink actionListener="#{indexController.setCentro('lista_doacoes.xhtml')}" 
+							value="Minhas Doações" rendered="#{cadastroAcessoController.logadoEDoador()}" />
+						</li>
+						<li>
+							<h:commandLink actionListener="#{indexController.setCentro('lista_coletas.xhtml')}" 
+							value="Minhas Coletas" rendered="#{cadastroAcessoController.logadoEColetor()}" />
 						</li>
 						<li>
 							<h:commandLink actionListener="#{indexController.setCentro('login.xhtml')}" 
@@ -110,8 +119,9 @@
 		  <div class="container">
 		    <div class="row">
 		      <div class="col s12 m8 l10">
-		        <h5 class="white-text">Você em um mundo de boas relações</h5>
-		        <p class="grey-text text-lighten-4 justificado">Somos uma equipe realizando um projeto que nasce para conclusão do curso com intenção de expandir ao mercado e melhorar a qualidade de vida tanto para quem possui muitos materiais a doar quanto aos profissionais do ramo.</p>
+		        <h5 class="white-text">Você em um mundo de boas relações.</h5>
+		        <p class="grey-text text-lighten-4 justificado">Este projeto nasce com o objetivo de melhorar a comunicação
+		        entre pessoas que possuem materiais a doar e coletores.</p>
 				<p class="grey-text text-lighten-4">Autor: Nazaré Guedert</p>
 		
 		      </div>
@@ -124,7 +134,7 @@
 <!-- 		          <li><a class="white-text" href="#!">Link 4</a></li> -->
 <!-- 		        </ul> -->
 <!-- 		      </div> -->
-		      <div class="col s12 m4 l2">
+		      <div class="col s12 m8 l2">
 		        <h5 class="white-text">Contato</h5>
 		        <ul>
 		          <li><a class="white-text" href="#!">Presidente</a></li>

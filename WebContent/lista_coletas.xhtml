@@ -12,7 +12,7 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
 
-	<title>Pontos de Coleta</title>
+	<title>Minhas Coletas</title>
 </h:head>
 
 <h:body class="background">
@@ -21,16 +21,16 @@
 	
 		<div class="container full-width col s12 m12 l12">
 		<fieldset class="row">
-			<legend>Onde Coletar</legend>
+			<legend>Minhas Coletas</legend>
 
 
 			<h:form id="teste" method="post">
 
-				<!-- 			<ul id="tabs-swipe-demo" class="tabs background"> -->
-				<!-- 				<li class="tab col s12 m12 l12"><a class="active" -->
-				<!-- 					href="#tab-endereco"></a></li> -->
-				<!-- 									<li class="tab col s6 m6 l6"><a href="#tab-material">Material</a></li> -->
-				<!-- 			</ul> -->
+				<!-- 				<ul id="tabs-swipe-demo" class="tabs background"> -->
+				<!-- 					<li class="tab col s12 m12 l12"><a class="active" -->
+				<!-- 						href="#tab-endereco"></a></li> -->
+				<!-- 										<li class="tab col s6 m6 l6"><a href="#tab-material">Material</a></li> -->
+				<!-- 				</ul> -->
 
 				<div id="tab-endereco" class="container full-width col s12 m12 l12">
 
@@ -77,60 +77,81 @@
 							<f:facet name="header">Material</f:facet>    				
 								#{item.material.nome}
 							</h:column>
+
 						<h:column>
 							<f:facet name="header">Detalhes</f:facet>
 							<h:commandButton disabled="false" value="Detalhes"
 								immediate="true"
 								class="waves-effect grey darken-2 white-text btn-small"
 								actionListener="#{indexController.setCentro('detalhes_coleta.xhtml')}">
-
 								<f:setPropertyActionListener
 									value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
 									target="#{detalhesColetaController.doacao}" />
-
 								<f:ajax event="action"
 									listener="#{pontosColetaController.recarregar}" />
 							</h:commandButton>
 						</h:column>
 
 						<h:column>
-							<f:facet name="header">Editar</f:facet>
-							<h:commandButton value="Editar" immediate="true" type="button"
-								class="waves-effect orange darken-2 white-text btn-small"
-								disabled="#{pontosColetaController.outroDoador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}"
-								actionListener="#{indexController.setCentro('cadastro_doacao.xhtml')}">
-
-
+							<f:facet name="header">Cancelar Coleta</f:facet>
+							<h:commandButton disabled="false" value="Cancelar"
+								immediate="true"
+								class="waves-effect grey darken-2 white-text btn-small"
+								actionListener="#{indexController.setCentro('detalhes_coleta.xhtml')}">
 								<f:setPropertyActionListener
 									value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
-									target="#{cadastroDoacaoController.doacao}" />
-
-								<f:ajax event="action"
-									listener="#{pontosColetaController.recarregar}" />
-
-							</h:commandButton>
-						</h:column>
-
-						<h:column rendered="#{pontosColetaController.podeColetar()}">
-							<f:facet name="header">Coletar</f:facet>
-							<h:commandButton value="Coletar" immediate="true"
-								class="btn waves-effect grey darken-2 white-text"
-								onclick="if (! confirm('Deseja coletar?')) return false"
-								disabled="#{pontosColetaController.doador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}"
-								actionListener="#{pontosColetaController.finalizarDoacao(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getId())}">
+									target="#{detalhesColetaController.doacao}" />
 								<f:ajax event="action"
 									listener="#{pontosColetaController.recarregar}" />
 							</h:commandButton>
 						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Cancelar da Lista de Impressão</f:facet>
+							<h:commandButton disabled="false" value="Cancelar"
+								immediate="true"
+								class="waves-effect grey darken-2 white-text btn-small"
+								actionListener="#{indexController.setCentro('detalhes_coleta.xhtml')}">
+								<f:setPropertyActionListener
+									value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
+									target="#{detalhesColetaController.doacao}" />
+								<f:ajax event="action"
+									listener="#{pontosColetaController.recarregar}" />
+							</h:commandButton>
+						</h:column>
+
+						<!-- 						<h:column rendered="#{listaColetasController.podeColetar()}"> -->
+						<!-- 							<f:facet name="header">Situação</f:facet> -->
+						<!-- 							<h:commandButton value="Cancelar" immediate="true" -->
+						<!-- 								class="waves-effect grey darken-2 white-text btn-small" -->
+						<!-- 								onclick="if (! confirm('Deseja cancelar?')) return false" -->
+						<!-- 								disabled="#{listaColetasController.coletor(listaColetasController.listaColetas.get(listaColetasController.listaColetas.indexOf(item)).getColetor().getId())}" -->
+						<!-- 								actionListener="#{listaColetasController.finalizarColeta(listaColetasController.listaColetas.get(listaColetasController.listaColetas.indexOf(item)).getId())}"> -->
+						<!-- 							</h:commandButton> -->
+						<!-- 							<h:selectManyCheckbox value="#{user.favNumber1}"> -->
+						<!-- 								<f:selectItem itemValue="1" itemLabel="Number1 - 1" /> -->
+						<!-- 								<f:selectItem itemValue="2" itemLabel="Number1 - 2" /> -->
+						<!-- 								<f:selectItem itemValue="3" itemLabel="Number1 - 3" /> -->
+						<!-- 							</h:selectManyCheckbox> -->
+
+						<!-- 						</h:column> -->
 
 					</h:dataTable>
 
 				</div>
 				<br></br>
+				<br></br>
 				<div class="col s12 m12 l12 center">
 					<h:commandButton
 						class="waves-effect grey darken-2 white-text btn-small"
 						value="Início"
+						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
+						<f:ajax event="action"
+							listener="#{pontosColetaController.recarregar}" />
+					</h:commandButton>
+					<h:commandButton
+						class="waves-effect grey darken-2 white-text btn-small"
+						value="Imprimir"
 						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
 						<f:ajax event="action"
 							listener="#{pontosColetaController.recarregar}" />

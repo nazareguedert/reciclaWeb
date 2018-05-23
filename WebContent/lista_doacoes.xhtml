@@ -12,7 +12,7 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
 
-	<title>Pontos de Coleta</title>
+	<title>Minhas Doações</title>
 </h:head>
 
 <h:body class="background">
@@ -21,7 +21,7 @@
 	
 		<div class="container full-width col s12 m12 l12">
 		<fieldset class="row">
-			<legend>Onde Coletar</legend>
+			<legend>Minhas Doações</legend>
 
 
 			<h:form id="teste" method="post">
@@ -70,15 +70,14 @@
 						value="#{pontosColetaController.pontosColeta}" var="item">
 
 						<h:column>
-							<f:facet name="header">Local</f:facet>    				
-								#{item.endereco.bairro.nome}
+
+							<f:facet name="header">Descrição</f:facet>    				
+								#{item.descricao}
 							</h:column>
-						<h:column>
-							<f:facet name="header">Material</f:facet>    				
-								#{item.material.nome}
-							</h:column>
+
 						<h:column>
 							<f:facet name="header">Detalhes</f:facet>
+
 							<h:commandButton disabled="false" value="Detalhes"
 								immediate="true"
 								class="waves-effect grey darken-2 white-text btn-small"
@@ -90,6 +89,7 @@
 
 								<f:ajax event="action"
 									listener="#{pontosColetaController.recarregar}" />
+
 							</h:commandButton>
 						</h:column>
 
@@ -111,17 +111,34 @@
 							</h:commandButton>
 						</h:column>
 
-						<h:column rendered="#{pontosColetaController.podeColetar()}">
-							<f:facet name="header">Coletar</f:facet>
-							<h:commandButton value="Coletar" immediate="true"
-								class="btn waves-effect grey darken-2 white-text"
-								onclick="if (! confirm('Deseja coletar?')) return false"
-								disabled="#{pontosColetaController.doador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}"
-								actionListener="#{pontosColetaController.finalizarDoacao(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getId())}">
+						<h:column>
+							<f:facet name="header">Coletores</f:facet>
+							<h:commandButton value="Coletor" immediate="true" type="button"
+								class="waves-effect orange darken-2 white-text btn-small"
+								disabled="#{pontosColetaController.outroDoador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}"
+								actionListener="#{indexController.setCentro('cadastro_doacao.xhtml')}">
+
+
+								<f:setPropertyActionListener
+									value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
+									target="#{cadastroDoacaoController.doacao}" />
+
 								<f:ajax event="action"
 									listener="#{pontosColetaController.recarregar}" />
+
 							</h:commandButton>
 						</h:column>
+
+						<!-- Fazer a lógica -->
+						<!-- 					<h:column rendered="#{pontosColetaController.podeColetar()}"> -->
+						<!-- 						<f:facet name="header">Coletor</f:facet> -->
+						<!-- 						<h:commandButton value="Coletor" immediate="true" -->
+						<!-- 							class="btn waves-effect grey darken-2 white-text" -->
+						<!-- 							onclick="if (! confirm('Deseja coletar?')) return false" -->
+						<!-- 							disabled="#{pontosColetaController.doador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}" -->
+						<!-- 							actionListener="#{pontosColetaController.finalizarDoacao(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getId())}"> -->
+						<!-- 						</h:commandButton> -->
+						<!-- 					</h:column> -->
 
 					</h:dataTable>
 

@@ -9,6 +9,7 @@
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"/>
 		
 		<title>Login</title>
 
@@ -60,18 +61,18 @@
 	
 					<div class="row center">
 					
-						<h:commandLink class="btn waves-effect grey darken-2 white-text" value="Entrar" 
+						<h:commandButton class="waves-effect grey darken-2 white-text btn-small" value="Entrar" 
 						actionListener="#{loginController.login()}">
 							<f:ajax event="action" listener="#{indexController.setCentro('landing_page.xhtml')}" render="msg_apelido msg_senha" />
-						</h:commandLink>
+						</h:commandButton>
 						
-						<h:commandButton id="tt" class="btn waves-effect grey darken-2 white-text" value="Limpar" 
+						<h:commandButton id="tt" class="waves-effect grey darken-2 white-text btn-small" value="Limpar" 
 						actionListener="#{indexController.setCentro('login.xhtml')}" />
 						
-						<h:commandButton class="btn waves-effect grey darken-2 white-text" value="Início" 
+						<h:commandLink class="waves-effect grey darken-2 white-text btn-small" value="Início" 
 						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
 							<f:ajax event="action" listener="#{indexController.recarregar()}" />
-						</h:commandButton>
+						</h:commandLink>
 						
 					</div>
 					<br></br>

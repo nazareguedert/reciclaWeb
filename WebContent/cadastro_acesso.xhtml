@@ -9,6 +9,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"/>
+	
 
 	<!-- 		<title>Cadastro Acesso</title> -->
 
@@ -160,7 +162,7 @@
 				</div>
 
 				<div class="col s12 m12 l12 center">
-					<h:commandButton class="btn waves-effect grey darken-2 white-text"
+					<h:commandButton class="waves-effect grey darken-2 white-text btn-small"
 						value="Salvar"
 						onclick="if (! confirm('Deseja salvar?')) return false"
 						actionListener="#{cadastroAcessoController.salvar()}">
@@ -169,14 +171,14 @@
 							render="mensagem" />
 
 					</h:commandButton>
-					<h:commandButton class="btn waves-effect grey darken-2 white-text"
+					<h:commandButton class="waves-effect grey darken-2 white-text btn-small"
 						value="Limpar"
 						actionListener="#{cadastroAcessoController.construir()}"
 						rendered="#{!cadastroAcessoController.logado}">
 						<f:ajax event="action"
 							listener="#{cadastroAcessoController.recarregar()}" />
 					</h:commandButton>
-					<h:commandButton class="btn waves-effect  grey darken-2 white-text"
+					<h:commandButton class="waves-effect  grey darken-2 white-text btn-small"
 						value="Início"
 						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
 						<f:ajax event="action"

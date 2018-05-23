@@ -8,7 +8,7 @@ public class Doacao {
 	private String titulo;
 	private String descricao;
 	private Usuario doador;
-	private Usuario coletor;
+	private Usuario coletor; 
 	private Endereco endereco;
 	private StatusDoacao statusDoacao;
 	private Material material;

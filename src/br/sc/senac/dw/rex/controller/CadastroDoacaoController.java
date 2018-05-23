@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.sc.senac.dw.buscacep.CepWebService;
 import br.sc.senac.dw.rex.db.model.DoacaoDAO;
 import br.sc.senac.dw.rex.db.model.MaterialDAO;
 import br.sc.senac.dw.rex.db.model.StatusDoacaoDAO;
@@ -28,6 +29,7 @@ import br.sc.senac.dw.rex.db.model.entity.StatusDoacao;
 import br.sc.senac.dw.rex.db.model.entity.TipoLogradouro;
 import br.sc.senac.dw.rex.db.model.entity.Usuario;
 
+@SuppressWarnings("cdi-ambiguous-dependency")
 @Named
 @SessionScoped
 public class CadastroDoacaoController implements Serializable {
@@ -80,7 +82,7 @@ public class CadastroDoacaoController implements Serializable {
 	}
 
 	public void construir() {
-
+		
 		this.mensagem = new CadastroDoacaoMensagem();
 
 		this.localidadeBO = new LocalidadeBO();
@@ -215,7 +217,6 @@ public class CadastroDoacaoController implements Serializable {
 		this.doacao.getEndereco().getBairro().getMunicipio().setEstado(new Estado());
 		this.estados = new ArrayList<>();
 	}
-
 	public void defineMunicipios() {
 
 		Estado selecionado = this.doacao.getEndereco().getBairro().getMunicipio().getEstado();
@@ -315,6 +316,28 @@ public class CadastroDoacaoController implements Serializable {
 	public void excluir() {
 		this.doacaoDAO.excluir(this.doacao.getId());
 		this.construir();
+	}
+	
+	public void consultar() {
+		
+		CepWebService cws = new CepWebService(this.doacao.getEndereco().getCep());
+		
+		this.doacao.getEndereco().getLogradouro().getTipoLogradouro().setNome(cws.getTipoLogradouro());
+		this.doacao.getEndereco().getLogradouro().setNome(cws.getLogradouro());
+		
+		if (cws.getBairro() != null && !cws.getBairro().equals("")) {
+			this.doacao.getEndereco().getBairro().setNome(cws.getBairro());
+		} else {
+			this.doacao.getEndereco().getBairro().setNome("Centro");
+		}
+		
+		this.doacao.getEndereco().getBairro().getMunicipio().setNome(cws.getCidade());
+		this.doacao.getEndereco().getBairro().getMunicipio().getEstado().setNome(cws.getEstado());
+		this.doacao.getEndereco().getBairro().getMunicipio().getEstado().getPais().setNome(cws.getRetorno());
+		System.out.println(cws);
+		
+		System.out.println(cws.getLogradouro());
+		
 	}
 
 }

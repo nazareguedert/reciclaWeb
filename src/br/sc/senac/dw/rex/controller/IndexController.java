@@ -22,9 +22,9 @@ public class IndexController implements Serializable {
 
 	public IndexController() {
 		this.centro = "landing_page.xhtml";
-		
+
 	}
-	
+
 	public void validar() {
 
 		if (this.doIndex == true) {

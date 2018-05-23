@@ -11,6 +11,7 @@ public class Usuario {
 	private NivelAcesso nivelAcesso;
 	private Date dataInclusao;
 	private Date dataRemocao;
+//	private Perfil perfil;
 
 	public Usuario() {
 		super();
