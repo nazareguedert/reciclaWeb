@@ -3,9 +3,11 @@ package br.sc.senac.dw.rex.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,6 +15,7 @@ import javax.inject.Named;
 import br.sc.senac.dw.buscacep.CepWebService;
 import br.sc.senac.dw.rex.db.model.DoacaoDAO;
 import br.sc.senac.dw.rex.db.model.MaterialDAO;
+import br.sc.senac.dw.rex.db.model.MunicipioDAO;
 import br.sc.senac.dw.rex.db.model.StatusDoacaoDAO;
 import br.sc.senac.dw.rex.db.model.TipoLogradouroDAO;
 import br.sc.senac.dw.rex.db.model.bo.AnuncioBO;
@@ -25,7 +28,6 @@ import br.sc.senac.dw.rex.db.model.entity.Logradouro;
 import br.sc.senac.dw.rex.db.model.entity.Material;
 import br.sc.senac.dw.rex.db.model.entity.Municipio;
 import br.sc.senac.dw.rex.db.model.entity.Pais;
-import br.sc.senac.dw.rex.db.model.entity.StatusDoacao;
 import br.sc.senac.dw.rex.db.model.entity.TipoLogradouro;
 import br.sc.senac.dw.rex.db.model.entity.Usuario;
 
@@ -38,6 +40,8 @@ public class CadastroDoacaoController implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 5315187528724402043L;
+
+	private static final Long CODIGO_PAIS_BRASIL = 1L;
 
 	private final CadastroAcessoController cadastroAcessoController;
 
@@ -65,7 +69,6 @@ public class CadastroDoacaoController implements Serializable {
 		super();
 
 		this.cadastroAcessoController = cadastroAcessoController;
-
 		construir();
 
 	}
@@ -97,7 +100,7 @@ public class CadastroDoacaoController implements Serializable {
 		this.doacao.getEndereco().getBairro().getMunicipio().getEstado().setPais(new Pais());
 
 		this.paises = localidadeBO.listarPaises();
-
+		this.estados = localidadeBO.listarEstadosPorPais(CODIGO_PAIS_BRASIL);
 		this.doacao.getEndereco().setLogradouro(new Logradouro());
 		this.doacao.getEndereco().getLogradouro().setTipoLogradouro(new TipoLogradouro());
 
@@ -331,13 +334,48 @@ public class CadastroDoacaoController implements Serializable {
 			this.doacao.getEndereco().getBairro().setNome("Centro");
 		}
 		
-		this.doacao.getEndereco().getBairro().getMunicipio().setNome(cws.getCidade());
-		this.doacao.getEndereco().getBairro().getMunicipio().getEstado().setNome(cws.getEstado());
-		this.doacao.getEndereco().getBairro().getMunicipio().getEstado().getPais().setNome(cws.getRetorno());
-		System.out.println(cws);
+		Estado estadoSelecionado = this.getEstadoPorUF(cws.getEstado());
+		Municipio municipioSelecionado = null;
 		
-		System.out.println(cws.getLogradouro());
+		if (estadoSelecionado != null) {
+			this.municipios = localidadeBO.listarMunicipiosPorEstado(estadoSelecionado.getId());
+			municipioSelecionado = this.getMunicipioPorNome(cws.getCidade());
+		}
 		
+		if(municipioSelecionado == null) {
+			municipioSelecionado = criarMunicipio(cws.getCidade(), estadoSelecionado);
+			this.municipios = localidadeBO.listarMunicipiosPorEstado(estadoSelecionado.getId());
+		}
+		
+		this.doacao.getEndereco().getBairro().setMunicipio(municipioSelecionado);
+	}
+	
+	private Municipio criarMunicipio(String nome, Estado estado) {
+		MunicipioDAO dao = new MunicipioDAO();
+		Municipio novoMunicipio = new Municipio(nome, estado, new Date(), null);
+		Long idNovoMunicipio = dao.inserir(novoMunicipio);
+		novoMunicipio.setId(idNovoMunicipio);
+		
+		return novoMunicipio;
+	}
+	
+	private Estado getEstadoPorUF(String uf) {
+		for(Estado e: this.estados) {
+			if(e.getUf().equals(uf)) {
+				return e;
+			}
+		}
+		return null;
+	}
+	
+	private Municipio getMunicipioPorNome(String nomeMunicipio) {
+		for(Municipio m: this.municipios) {
+			//TODO verificar o cadastro dos NOMES (acentos, case sensitive, etc.)
+			if(m.getNome().equals(nomeMunicipio)) {
+				return m;
+			}
+		}
+		return null;
 	}
 
 }

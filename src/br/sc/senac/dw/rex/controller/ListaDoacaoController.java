@@ -3,13 +3,10 @@ package br.sc.senac.dw.rex.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import br.sc.senac.dw.rex.db.model.BairroDAO;
 import br.sc.senac.dw.rex.db.model.DoacaoDAO;
@@ -19,20 +16,13 @@ import br.sc.senac.dw.rex.db.model.bo.AnuncioBO;
 import br.sc.senac.dw.rex.db.model.entity.Bairro;
 import br.sc.senac.dw.rex.db.model.entity.Doacao;
 import br.sc.senac.dw.rex.db.model.entity.Material;
-import br.sc.senac.dw.rex.db.model.entity.Usuario;
 import br.sc.senac.dw.rex.filtro.AnuncioVO;
 import br.sc.senac.dw.rex.filtro.FiltroAnuncio;
 
-@Named
-@ViewScoped
-public class PontosColetaController implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5919332985553419796L;
+public class ListaDoacaoController implements Serializable{
+	private static final long serialVersionUID = -6379176287545836996L;
 	
-	private final CadastroAcessoController cadastroAcessoController;
+	private CadastroAcessoController cadastroAcessoController;
 
 	private StatusDoacaoDAO statusDoacaoDAO;
 	
@@ -43,12 +33,10 @@ public class PontosColetaController implements Serializable {
 	public List<Doacao> getPontosSelecionados() {
 		return pontosSelecionados;
 	}
-
 	public void setPontosSelecionados(List<Doacao> pontosSelecionados) {
 		this.pontosSelecionados = pontosSelecionados;
 	}
-
-
+	
 	private AnuncioBO anuncioBO;
 	private DoacaoDAO doacaoDAO;
 
@@ -63,7 +51,7 @@ public class PontosColetaController implements Serializable {
 	private List<Bairro> bairros;
 
 	@Inject
-	public PontosColetaController(CadastroAcessoController cadastroAcessoController) {
+	public void PontosColetaController(CadastroAcessoController cadastroAcessoController) {
 		
 		this.cadastroAcessoController = cadastroAcessoController;
 		
@@ -203,5 +191,6 @@ public class PontosColetaController implements Serializable {
 		this.doacaoDAO.alterar(d);
 		this.doacaoDAO.excluir(doacao);
 	}
-	
+
 }
+

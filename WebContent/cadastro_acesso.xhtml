@@ -21,7 +21,7 @@
 	
 		<div class="container full-width col s12 m12 l12">
 		<fieldset class="row">
-			<!-- 						<legend>Cadastro para acesso</legend> -->
+									<legend>Cadastro</legend>
 
 			<h:form id="formulario" method="post" action="/rex/CadastroAcesso">
 				<ul id="tabs-swipe-demo" class="tabs background">
@@ -49,10 +49,9 @@
 										var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
 									<f:ajax event="change" render="doc doc_label" />
 								</h:selectOneMenu>
-
 							</div>
-
 						</div>
+						
 						<div class="input-field col s12 m5 l6">
 							<h:inputText id="nome" name="nome" type="text" class="validate"
 								required="required"

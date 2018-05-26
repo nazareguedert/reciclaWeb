@@ -67,7 +67,7 @@
 				<div class="input-field col s12 m12 l12">
 
 					<h:dataTable id="tabelaDoacoes" class="striped highlight"
-						value="#{pontosColetaController.pontosColeta}" var="item">
+						value="#{listaColetaController.pontosColeta}" var="item">
 
 						<h:column>
 							<f:facet name="header">Local</f:facet>    				
@@ -105,10 +105,10 @@
 									listener="#{pontosColetaController.recarregar}" />
 							</h:commandButton>
 						</h:column>
-						
+
 						<h:column>
-							<f:facet name="header">Cancelar da Lista de Impressão</f:facet>
-							<h:commandButton disabled="false" value="Cancelar"
+							<f:facet name="header">Lista de Impressão</f:facet>
+							<h:commandButton disabled="false" value="Excluir"
 								immediate="true"
 								class="waves-effect grey darken-2 white-text btn-small"
 								actionListener="#{indexController.setCentro('detalhes_coleta.xhtml')}">
@@ -119,22 +119,20 @@
 									listener="#{pontosColetaController.recarregar}" />
 							</h:commandButton>
 						</h:column>
-
-						<!-- 						<h:column rendered="#{listaColetasController.podeColetar()}"> -->
-						<!-- 							<f:facet name="header">Situação</f:facet> -->
-						<!-- 							<h:commandButton value="Cancelar" immediate="true" -->
-						<!-- 								class="waves-effect grey darken-2 white-text btn-small" -->
-						<!-- 								onclick="if (! confirm('Deseja cancelar?')) return false" -->
-						<!-- 								disabled="#{listaColetasController.coletor(listaColetasController.listaColetas.get(listaColetasController.listaColetas.indexOf(item)).getColetor().getId())}" -->
-						<!-- 								actionListener="#{listaColetasController.finalizarColeta(listaColetasController.listaColetas.get(listaColetasController.listaColetas.indexOf(item)).getId())}"> -->
-						<!-- 							</h:commandButton> -->
-						<!-- 							<h:selectManyCheckbox value="#{user.favNumber1}"> -->
-						<!-- 								<f:selectItem itemValue="1" itemLabel="Number1 - 1" /> -->
-						<!-- 								<f:selectItem itemValue="2" itemLabel="Number1 - 2" /> -->
-						<!-- 								<f:selectItem itemValue="3" itemLabel="Number1 - 3" /> -->
-						<!-- 							</h:selectManyCheckbox> -->
-
-						<!-- 						</h:column> -->
+						
+						<h:column>
+							<f:facet name="header">Coletado</f:facet>
+							<h:commandButton disabled="false" value="Coletado"
+								immediate="true"
+								class="waves-effect grey darken-2 white-text btn-small"
+								actionListener="#{indexController.setCentro('detalhes_coleta.xhtml')}">
+								<f:setPropertyActionListener
+									value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
+									target="#{detalhesColetaController.doacao}" />
+								<f:ajax event="action"
+									listener="#{pontosColetaController.recarregar}" />
+							</h:commandButton>
+						</h:column>
 
 					</h:dataTable>
 

@@ -3,7 +3,6 @@ package br.sc.senac.dw.rex.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -19,35 +18,23 @@ import br.sc.senac.dw.rex.db.model.bo.AnuncioBO;
 import br.sc.senac.dw.rex.db.model.entity.Bairro;
 import br.sc.senac.dw.rex.db.model.entity.Doacao;
 import br.sc.senac.dw.rex.db.model.entity.Material;
-import br.sc.senac.dw.rex.db.model.entity.Usuario;
 import br.sc.senac.dw.rex.filtro.AnuncioVO;
 import br.sc.senac.dw.rex.filtro.FiltroAnuncio;
 
 @Named
 @ViewScoped
-public class PontosColetaController implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5919332985553419796L;
+public class ListaColetaController implements Serializable {
 	
-	private final CadastroAcessoController cadastroAcessoController;
+	private static final long serialVersionUID = -6897894005275833868L;
+
+	private CadastroAcessoController cadastroAcessoController;
 
 	private StatusDoacaoDAO statusDoacaoDAO;
-	
+
 	private List<AnuncioVO> anuncios;
 
 	private List<Doacao> pontosColeta;
 	private List<Doacao> pontosSelecionados;
-	public List<Doacao> getPontosSelecionados() {
-		return pontosSelecionados;
-	}
-
-	public void setPontosSelecionados(List<Doacao> pontosSelecionados) {
-		this.pontosSelecionados = pontosSelecionados;
-	}
-
 
 	private AnuncioBO anuncioBO;
 	private DoacaoDAO doacaoDAO;
@@ -63,12 +50,12 @@ public class PontosColetaController implements Serializable {
 	private List<Bairro> bairros;
 
 	@Inject
-	public PontosColetaController(CadastroAcessoController cadastroAcessoController) {
-		
+	public void PontosColetaController(CadastroAcessoController cadastroAcessoController) {
+
 		this.cadastroAcessoController = cadastroAcessoController;
-		
+
 		this.statusDoacaoDAO = new StatusDoacaoDAO();
-		
+
 		this.anuncioBO = new AnuncioBO();
 		// this.pontosdeColeta = anuncioBO.listarDoacoesPorFiltro(null);
 		this.doacaoDAO = new DoacaoDAO();
@@ -79,7 +66,7 @@ public class PontosColetaController implements Serializable {
 		this.bairroDAO = new BairroDAO();
 		this.bairros = bairroDAO.listarTodos();
 
-		this.pontosColeta = doacaoDAO.listarTodos(true);
+		this.pontosColeta = getPontosColetaDoUsuario();
 
 		this.filtro = new FiltroAnuncio();
 
@@ -96,7 +83,7 @@ public class PontosColetaController implements Serializable {
 	}
 
 	public List<Doacao> getPontosColeta() {
-		return pontosColeta;
+		return this.pontosColeta;
 	}
 
 	public void setPontosColeta(List<Doacao> pontosdeColeta) {
@@ -113,6 +100,14 @@ public class PontosColetaController implements Serializable {
 
 	public List<Material> getTiposMateriais() {
 		return tiposMateriais;
+	}
+
+	public List<Doacao> getPontosSelecionados() {
+		return pontosSelecionados;
+	}
+
+	public void setPontosSelecionados(List<Doacao> pontosSelecionados) {
+		this.pontosSelecionados = pontosSelecionados;
 	}
 
 	public void setTiposMateriais(List<Material> tiposMateriais) {
@@ -136,10 +131,9 @@ public class PontosColetaController implements Serializable {
 		System.out.println(anuncios);
 
 		this.pontosColeta = new ArrayList<>();
-		
-		
-		if(this.filtro.temCampoPreenchido()) {
-			
+
+		if (this.filtro.temCampoPreenchido()) {
+
 			for (int i = 0; i < anuncios.size(); i++) {
 
 				String id = (String) anuncios.get(i).getIdDoacoao();
@@ -149,54 +143,52 @@ public class PontosColetaController implements Serializable {
 				this.pontosColeta.add(doacaoDAO.getPorId(idDoacao));
 
 			}
-			
+
 		} else {
-			
+
 			this.pontosColeta = doacaoDAO.listarTodos(true);
 			this.recarregar();
-			
+
 		}
 
-
 	}
-	
+
 	public boolean doador(Long idUsuario) {
-		
-		if(this.cadastroAcessoController.getUsuario().getId() == idUsuario) {
+
+		if (this.cadastroAcessoController.getUsuario().getId() == idUsuario) {
 			return true;
-			
+
 		} else {
 			return false;
-			
+
 		}
 	}
-	
+
 	public boolean outroDoador(Long idUsuario) {
-		
-		if(this.cadastroAcessoController.getUsuario().getId() == idUsuario) {
+
+		if (this.cadastroAcessoController.getUsuario().getId() == idUsuario) {
 			return false;
-			
+
 		} else {
 			return true;
-			
+
 		}
 	}
-	
+
 	public boolean podeColetar() {
-		
-		if(this.cadastroAcessoController.getUsuario().getNivelAcesso().getNome().equals("Doador")) {
+
+		if (this.cadastroAcessoController.getUsuario().getNivelAcesso().getNome().equals("Doador")) {
 			return false;
-			
+
 		} else {
 			return true;
-			
+
 		}
-		
+
 	}
-	
 
 	public void finalizarDoacao(Long doacao) {
-		
+
 		Doacao d = this.doacaoDAO.getPorId(doacao);
 		d.setColetor(this.cadastroAcessoController.getUsuario());
 		d.setStatusDoacao(statusDoacaoDAO.get("Encerrado"));
@@ -204,4 +196,19 @@ public class PontosColetaController implements Serializable {
 		this.doacaoDAO.excluir(doacao);
 	}
 	
+	public List<Doacao> getPontosColetaDoUsuario() {
+
+		List<Doacao> coletas = doacaoDAO.listarTodos();
+		List<Doacao> coletasDoUsuarioLogado = new ArrayList<>();
+
+		for (Doacao doacao : coletas) {
+			if (doacao.getColetor() != null && doacao.getColetor().getId() != null
+					&& this.cadastroAcessoController.getUsuario().getId() == doacao.getColetor().getId()) {
+				coletasDoUsuarioLogado.add(doacao);
+			}
+		}
+
+		return coletasDoUsuarioLogado;
+	}
+
 }

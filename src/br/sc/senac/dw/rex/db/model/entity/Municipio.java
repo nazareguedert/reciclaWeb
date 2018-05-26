@@ -19,6 +19,15 @@ public class Municipio {
 		this.nome = nome;
 		this.estado = estado;
 	}
+	
+	public Municipio(String nome, Estado estado, Date dataInclusao, Date dataRemocao) {
+		super();
+		this.nome = nome;
+		this.estado = estado;
+		this.dataInclusao = dataInclusao;
+		this.dataRemocao = dataRemocao;
+	}
+
 
 	public Municipio(Long id, String nome, Estado estado, Date dataInclusao, Date dataRemocao) {
 		super();
