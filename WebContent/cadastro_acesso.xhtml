@@ -9,8 +9,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"/>
-	
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
+
 
 	<!-- 		<title>Cadastro Acesso</title> -->
 
@@ -21,7 +22,7 @@
 	
 		<div class="container full-width col s12 m12 l12">
 		<fieldset class="row">
-									<legend>Cadastro</legend>
+			<legend>Cadastro</legend>
 
 			<h:form id="formulario" method="post" action="/rex/CadastroAcesso">
 				<ul id="tabs-swipe-demo" class="tabs background">
@@ -30,129 +31,132 @@
 				</ul>
 
 				<div id="tab-pessoa" class="container full-width col s12 m12 l12">
-<!-- 					<fieldset class="row"> -->
+					<!-- 					<fieldset class="row"> -->
 
-						<!-- 									<legend>Dados da Pessoa:</legend> -->
+					<!-- 									<legend>Dados da Pessoa:</legend> -->
 
-						<div class="col s12 m12 l12 row">
-							<div class="col s12 m6 l6">
-								<label for="tipo-pessoa" class="col s12 m12 l12">Tipo de
-									Pessoa</label>
-								<h:selectOneMenu id="tipo-pessoa"
-									value="#{cadastroAcessoController.usuario.pessoa.tipoPessoa}"
-									converter="tipoPessoaConverter" required="true"
-									class="browser-default col s12 m12 l12 background z-depth-1"
-									disabled="#{cadastroAcessoController.logado}"
-									valueChangeListener="#{cadastroAcessoController.defineDoc}">
+					<div class="col s12 m12 l12 row">
+						<div class="col s12 m6 l6">
+							<label for="tipo-pessoa" class="col s12 m12 l12">Tipo de
+								Pessoa</label>
+							<h:selectOneMenu id="tipo-pessoa"
+								value="#{cadastroAcessoController.usuario.pessoa.tipoPessoa}"
+								converter="tipoPessoaConverter" required="true"
+								class="browser-default col s12 m12 l12 background z-depth-1"
+								disabled="#{cadastroAcessoController.logado}"
+								valueChangeListener="#{cadastroAcessoController.defineDoc}">
 
-									<f:selectItems value="#{cadastroAcessoController.tiposPessoa}"
-										var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
-									<f:ajax event="change" render="doc doc_label" />
-								</h:selectOneMenu>
-							</div>
+								<f:selectItems value="#{cadastroAcessoController.tiposPessoa}"
+									var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+								<f:ajax event="change" render="doc doc_label" />
+							</h:selectOneMenu>
 						</div>
-						
-						<div class="input-field col s12 m5 l6">
-							<h:inputText id="nome" name="nome" type="text" class="validate"
-								required="required"
-								value="#{cadastroAcessoController.usuario.pessoa.nome}"
-								maxlength="30" onkeypress="mascara(this,capitalizer)">
-								<f:ajax event="change" />
-							</h:inputText>
-							<label for="nome">Nome</label>
-						</div>
+					</div>
 
-						<div class="input-field col s12 m7 l6">
-							<h:inputText id="sobrenome" name="sobrenome" type="text"
-								class="validate" required="required"
-								value="#{cadastroAcessoController.usuario.pessoa.nomeAuxiliar}"
-								maxlength="30" onkeypress="mascara(this,capitalizer)">
-								<f:ajax event="change" />
-							</h:inputText>
-							<label for="sobrenome">Sobrenome</label>
-						</div>
+					<div class="input-field col s12 m5 l6">
+						<h:inputText id="nome" name="nome" type="text" class="validate"
+							required="required"
+							value="#{cadastroAcessoController.usuario.pessoa.nome}"
+							maxlength="30" onkeypress="mascara(this,capitalizer)">
+							<f:ajax event="change" />
+						</h:inputText>
+						<label for="nome">Nome</label>
+					</div>
 
-						<div class="input-field col s12 m6 l6">
-							<h:inputText disabled="#{cadastroAcessoController.logado}"
-								id="doc" name="doc" type="text" class="validate"
-								required="required" maxlength="14"
-								value="#{cadastroAcessoController.usuario.pessoa.doc}"
-								onkeypress="return mascaraGenerica(event, this, '#{cadastroAcessoController.usuario.pessoa.tipoPessoa.mascara}');">
-								<f:ajax event="change" />
-							</h:inputText>
-							<h:outputLabel for="doc" id="doc_label"
-								value="#{cadastroAcessoController.usuario.pessoa.tipoPessoa.nome eq 'Fisica' ? 'CPF' : 'CNPJ'}" />
-						</div>
-						
-<!-- 						implementar -->
-						<div class="input-field col s12 m7 l6">
-							<h:inputText id="telefone" name="telefone" type="text"
-								class="validate" required="required"
-								value="#{cadastroAcessoController.usuario.pessoa.telefone}"
-								maxlength="30" onkeypress="mascara(this,capitalizer)">
-								<f:ajax event="change" />
-							</h:inputText>
-							<label for="telefone">Celular</label>
-						</div>
-						
-<!-- 					</fieldset> -->
+<!-- 					<h:form id="form" enctype="multipart/form-data"> -->
+<!-- 						<h:inputFile id="file" value="#{arquivoBean.arquivo}" /> -->
+<!-- 						<h:commandButton value="Upload" action="#{arquivoBean.upload}" /> -->
+<!-- 					</h:form> -->
+
+					<div class="input-field col s12 m7 l6">
+						<h:inputText id="sobrenome" name="sobrenome" type="text"
+							class="validate" required="required"
+							value="#{cadastroAcessoController.usuario.pessoa.nomeAuxiliar}"
+							maxlength="30" onkeypress="mascara(this,capitalizer)">
+							<f:ajax event="change" />
+						</h:inputText>
+						<label for="sobrenome">Sobrenome</label>
+					</div>
+
+					<div class="input-field col s12 m6 l6">
+						<h:inputText disabled="#{cadastroAcessoController.logado}"
+							id="doc" name="doc" type="text" class="validate"
+							required="required" maxlength="14"
+							value="#{cadastroAcessoController.usuario.pessoa.doc}"
+							onkeypress="return mascaraGenerica(event, this, '#{cadastroAcessoController.usuario.pessoa.tipoPessoa.mascara}');">
+							<f:ajax event="change" />
+						</h:inputText>
+						<h:outputLabel for="doc" id="doc_label"
+							value="#{cadastroAcessoController.usuario.pessoa.tipoPessoa.nome eq 'Fisica' ? 'CPF' : 'CNPJ'}" />
+					</div>
+
+					<!-- 						implementar -->
+					<div class="input-field col s12 m7 l6">
+						<h:inputText id="telefone" name="telefone" type="text"
+							class="validate" required="required"
+							value="#{cadastroAcessoController.usuario.pessoa.telefone}"
+							maxlength="30" onkeypress="mascara(this,capitalizer)">
+							<f:ajax event="change" />
+						</h:inputText>
+						<label for="telefone">Celular</label>
+					</div>
+
+					<!-- 					</fieldset> -->
 
 				</div>
 				<div id="tab-grau-acesso" class="col s12 m12 l12">
 
-<!-- 					<fieldset class="row"> -->
+					<!-- 					<fieldset class="row"> -->
 
-						<!-- 									<legend>Dados do Acesso:</legend> -->
+					<!-- 									<legend>Dados do Acesso:</legend> -->
+
+					<div class="input-field col s12 m6 l6">
+						<h:inputText id="apelido" name="apelido" type="text"
+							class="validate" required="required"
+							disabled="#{cadastroAcessoController.logado}"
+							value="#{cadastroAcessoController.usuario.usuario}"
+							maxlength="30">
+							<f:ajax event="change" />
+						</h:inputText>
+						<label for="apelido">Login</label>
+					</div>
+
+					<div class="row col s12 m12 l12">
+						<div class="input-field col s12 m6 l6">
+							<h:inputSecret id="senha" name="senha" class="validate"
+								required="required"
+								value="#{cadastroAcessoController.usuario.senha}" maxlength="10">
+								<f:ajax event="change" />
+							</h:inputSecret>
+							<label for="senha">Senha</label>
+						</div>
 
 						<div class="input-field col s12 m6 l6">
-							<h:inputText id="apelido" name="apelido" type="text"
-								class="validate" required="required"
-								disabled="#{cadastroAcessoController.logado}"
-								value="#{cadastroAcessoController.usuario.usuario}"
-								maxlength="30">
+							<h:inputSecret id="conf-senha" name="conf-senha" class="validate"
+								required="required"
+								value="#{cadastroAcessoController.senhaConfirma}" maxlength="10">
 								<f:ajax event="change" />
-							</h:inputText>
-							<label for="apelido">Login</label>
+							</h:inputSecret>
+							<label for="conf-senha">Confirmar senha</label>
 						</div>
 
-						<div class="row col s12 m12 l12">
-							<div class="input-field col s12 m6 l6">
-								<h:inputSecret id="senha" name="senha" class="validate"
-									required="required"
-									value="#{cadastroAcessoController.usuario.senha}"
-									maxlength="10">
-									<f:ajax event="change" />
-								</h:inputSecret>
-								<label for="senha">Senha</label>
-							</div>
+						<div class="col s12 m6 l6">
+							<label for="tipo-acesso" class="col s12 m12 l12">Tipo de
+								Usuário</label>
+							<h:selectOneMenu id="tipo-acesso"
+								value="#{cadastroAcessoController.usuario.nivelAcesso}"
+								converter="tipoUsuarioConverter" required="true"
+								class="browser-default col s12 m12 l12 background z-depth-1">
 
-							<div class="input-field col s12 m6 l6">
-								<h:inputSecret id="conf-senha" name="conf-senha"
-									class="validate" required="required"
-									value="#{cadastroAcessoController.senhaConfirma}"
-									maxlength="10">
-									<f:ajax event="change" />
-								</h:inputSecret>
-								<label for="conf-senha">Confirmar senha</label>
-							</div>
+								<f:selectItems
+									value="#{cadastroAcessoController.niveisTiposUsuario}"
+									var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+								<f:ajax event="change" />
+							</h:selectOneMenu>
 
-							<div class="col s12 m6 l6">
-								<label for="tipo-acesso" class="col s12 m12 l12">Tipo de
-									Usuário</label>
-								<h:selectOneMenu id="tipo-acesso"
-									value="#{cadastroAcessoController.usuario.nivelAcesso}"
-									converter="tipoUsuarioConverter" required="true"
-									class="browser-default col s12 m12 l12 background z-depth-1">
-
-									<f:selectItems
-										value="#{cadastroAcessoController.niveisTiposUsuario}"
-										var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
-									<f:ajax event="change" />
-								</h:selectOneMenu>
-
-							</div>
 						</div>
-<!-- 					</fieldset> -->
+					</div>
+					<!-- 					</fieldset> -->
 				</div>
 
 				<div class="col s12 m12 l12 center">
@@ -161,7 +165,8 @@
 				</div>
 
 				<div class="col s12 m12 l12 center">
-					<h:commandButton class="waves-effect grey darken-2 white-text btn-small"
+					<h:commandButton
+						class="waves-effect grey darken-2 white-text btn-small"
 						value="Salvar"
 						onclick="if (! confirm('Deseja salvar?')) return false"
 						actionListener="#{cadastroAcessoController.salvar()}">
@@ -170,14 +175,16 @@
 							render="mensagem" />
 
 					</h:commandButton>
-					<h:commandButton class="waves-effect grey darken-2 white-text btn-small"
+					<h:commandButton
+						class="waves-effect grey darken-2 white-text btn-small"
 						value="Limpar"
 						actionListener="#{cadastroAcessoController.construir()}"
 						rendered="#{!cadastroAcessoController.logado}">
 						<f:ajax event="action"
 							listener="#{cadastroAcessoController.recarregar()}" />
 					</h:commandButton>
-					<h:commandButton class="waves-effect  grey darken-2 white-text btn-small"
+					<h:commandButton
+						class="waves-effect  grey darken-2 white-text btn-small"
 						value="Início"
 						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
 						<f:ajax event="action"
