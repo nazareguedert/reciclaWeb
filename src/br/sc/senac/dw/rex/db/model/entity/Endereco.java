@@ -2,7 +2,7 @@ package br.sc.senac.dw.rex.db.model.entity;
 
 import java.util.Date;
 
-import br.sc.senac.dw.buscacep.CepWebService;
+//import br.sc.senac.dw.buscacep.CepWebService;
 
 public class Endereco {
 
@@ -16,7 +16,6 @@ public class Endereco {
 	private String complemento;
 	private Date dataInclusao;
 	private Date dataRemocao;
-//	private CepWebService cep;
 
 	public Endereco() {
 		super();

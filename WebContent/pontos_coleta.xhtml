@@ -79,7 +79,7 @@
 							<f:facet name="header">Detalhes</f:facet>
 							<h:commandButton disabled="false" value="Detalhes"
 								immediate="true"
-								class="waves-effect grey darken-2 white-text btn-small"
+								styleClass="btn btn-primiry btn-lg"
 								actionListener="#{indexController.setCentro('detalhes_coleta.xhtml')}">
 								<f:setPropertyActionListener
 									value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
@@ -144,7 +144,7 @@
 				<br></br>
 				<div class="col s12 m12 l12 center">
 					<h:commandButton
-						class="waves-effect grey darken-2 white-text btn-small"
+						styleClass="btn btn-primiry btn-lg"
 						value="Início"
 						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
 						<f:ajax event="action"

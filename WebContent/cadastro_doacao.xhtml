@@ -283,28 +283,28 @@
 
 				<div class="col s12 m12 l12 center">
 					<h:commandButton
-						class="waves-effect grey darken-2 white-text btn-small"
+						styleClass="btn btn-primiry btn-lg"
 						onclick="if (! confirm('Deseja salvar?')) return false"
 						actionListener="#{cadastroDoacaoController.salvarDoacao()}"
 						value="Salvar">
 						<f:ajax event="action" render="mensagem" />
 					</h:commandButton>
 					<h:commandButton
-						class="waves-effect grey darken-2 white-text btn-small"
+						styleClass="btn btn-primiry btn-lg"
 						value="Novo"
 						actionListener="#{cadastroDoacaoController.construir}">
 						<f:ajax event="action"
 							listener="#{cadastroDoacaoController.recarregar()}" />
 					</h:commandButton>
 					<h:commandButton
-						class="waves-effect grey darken-2 white-text btn-small"
+						styleClass="btn btn-primiry btn-lg" 
 						value="Início"
 						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
 						<f:ajax event="action"
 							listener="#{cadastroDoacaoController.recarregar}" />
 					</h:commandButton>
 					<h:commandButton
-						class="waves-effect grey darken-2 white-text btn-small"
+						styleClass="btn btn-primiry btn-lg"
 						value="Excluir"
 						onclick="if (! confirm('Deseja apagar?')) return false"
 						actionListener="#{cadastroDoacaoController.excluir}"

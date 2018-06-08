@@ -49,7 +49,7 @@
 													
 													<div class="input-field col s12 m12 l12">
 														<h:inputText disabled="true" value="#{detalhesColetaController.doacao.quantia}" />
-														<label for="qtd_material">Quantia</label>
+														<label for="qtd_material">Quantidade</label>
 													</div>
 							
 										</fieldset>
@@ -123,7 +123,7 @@
 
 			
 						<div class="col s12 m12 l12 center">
-								<h:commandButton class="btn waves-effect grey darken-2 white-text" value="Voltar" 
+								<h:commandButton styleClass="btn btn-primiry btn-lg" value="Voltar" 
 								actionListener="#{indexController.setCentro('pontos_coleta.xhtml')}">
 									<f:ajax event="action" listener="#{cadastroDoacaoController.recarregar}" />
 								</h:commandButton>
