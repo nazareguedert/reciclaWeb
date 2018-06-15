@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.sc.senac.dw.rex.db.model.entity.Usuario;
+import br.sc.senac.dw.rex.sms.EnviaSMS;
 
 
 @Named
@@ -64,7 +65,7 @@ public class LoginController implements Serializable {
 		this.msgSenha = msgSenha;
 	}
 	
-	public void login() {
+	public void login() throws Exception {
 
 		Usuario u = this.cadastroAcessoController.getUsuarioDAO().get(this.apelido);
 		
@@ -79,10 +80,11 @@ public class LoginController implements Serializable {
 				this.cadastroAcessoController.setLogado(true);
 				
 				this.cadastroAcessoController.recarregar();
+				EnviaSMS.send("48996465546", "Teste para o cadastro login...");
 			} else {
 				
 				this.msgApelido = "";
-				this.msgSenha = "Incorreta, favor verificar";
+				this.msgSenha = "Senha incorreta, favor verificar";
 			}
 
 

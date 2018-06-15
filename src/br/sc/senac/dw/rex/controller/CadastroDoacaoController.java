@@ -214,6 +214,25 @@ public class CadastroDoacaoController implements Serializable {
 		}
 
 	}
+	
+//	public void defineEstados() {
+//		// ValueChangeEvent evt
+//		// Pais selecionado = (Pais)evt.getNewValue();
+//
+//		Pais selecionado = this.doacao.getEndereco().getBairro().getMunicipio().getEstado().getPais();
+//
+//		if (selecionado != null && selecionado.getId() != null) {
+//
+//			constroiEstado(selecionado);
+//			this.setEstados(localidadeBO.listarEstadosPorPais(selecionado.getId()));
+//
+//		} else {
+//			constroiEstado();
+//			this.doacao.getEndereco().getBairro().getMunicipio().getEstado().setPais(new Pais());
+//
+//		}
+//
+//	}
 
 	public void constroiEstado(Pais pais) {
 		constroiEstado();

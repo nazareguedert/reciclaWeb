@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
+
+	<title>Lista de Coletas</title>
+</h:head>
+
+<h:body class="background">
+	#{indexController.validar()}
+	
+		<div class="container full-width col s12 m12 l12">
+
+		<fieldset class="row">
+
+			<legend>Lista de Coletas</legend>
+
+			<h:form id="teste" method="post">
+
+				<div class="input-field col s12 m12 l12">
+
+					<h:dataTable id="tabelaColetas" class="striped highlight"
+						value="#{listaColetaController.pontosColeta}" var="item">
+						<h:column>
+							<f:facet name="header">Local</f:facet>    				
+								#{item.endereco.bairro.nome}
+							</h:column>
+						<h:column>
+							<f:facet name="header">Material</f:facet>    				
+								#{item.material.nome}
+							</h:column>
+						<h:column>
+							<f:facet name="header">Quantidade</f:facet>    				
+														#{item.quantia}
+													</h:column>
+													
+					</h:dataTable>
+						<div class="col s12 m12 l12 center">
+							<h:commandButton styleClass="btn btn-primiry btn-lg"
+								value="Voltar"
+								actionListener="#{indexController.setCentro('lista_coletas.xhtml')}">
+								<f:ajax event="action"
+									listener="#{pontosColetaController.recarregar}" />
+							</h:commandButton>
+						</div>
+				</div>
+			</h:form>
+		</fieldset>
+	</div>
+	<br></br>
+</h:body>
+</html>

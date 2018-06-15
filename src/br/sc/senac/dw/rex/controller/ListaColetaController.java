@@ -35,6 +35,7 @@ public class ListaColetaController implements Serializable {
 
 	private List<Doacao> pontosColeta;
 	private List<Doacao> pontosSelecionados;
+	private List<Doacao> pontosListar;
 
 	private AnuncioBO anuncioBO;
 	private DoacaoDAO doacaoDAO;
@@ -104,6 +105,14 @@ public class ListaColetaController implements Serializable {
 
 	public List<Doacao> getPontosSelecionados() {
 		return pontosSelecionados;
+	}
+	
+	public List<Doacao> getPontosListar() {
+		return pontosListar;
+	}
+	
+	public void setPontosListar(List<Doacao> pontosListar) {
+		this.pontosListar = pontosListar;
 	}
 
 	public void setPontosSelecionados(List<Doacao> pontosSelecionados) {
@@ -210,5 +219,6 @@ public class ListaColetaController implements Serializable {
 
 		return coletasDoUsuarioLogado;
 	}
+
 
 }

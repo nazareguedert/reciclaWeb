@@ -22,6 +22,7 @@ import br.sc.senac.dw.rex.db.model.entity.Material;
 import br.sc.senac.dw.rex.db.model.entity.Usuario;
 import br.sc.senac.dw.rex.filtro.AnuncioVO;
 import br.sc.senac.dw.rex.filtro.FiltroAnuncio;
+import br.sc.senac.dw.rex.sms.EnviaSMS;
 
 @Named
 @ViewScoped
@@ -195,13 +196,14 @@ public class PontosColetaController implements Serializable {
 	}
 	
 
-	public void finalizarDoacao(Long doacao) {
+	public void finalizarDoacao(Long doacao) throws Exception {
 		
 		Doacao d = this.doacaoDAO.getPorId(doacao);
 		d.setColetor(this.cadastroAcessoController.getUsuario());
 		d.setStatusDoacao(statusDoacaoDAO.get("Encerrado"));
 		this.doacaoDAO.alterar(d);
 		this.doacaoDAO.excluir(doacao);
+		EnviaSMS.send("48996465546", "Teste - solicitar doação...");
 	}
 	
 }

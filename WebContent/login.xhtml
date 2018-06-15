@@ -5,83 +5,95 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"/>
-		
-		<title>Login</title>
 
-	</h:head>
-	
-	<h:body class="container full-width row blue-grey lighten-5">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
+
+	<title>Login</title>
+
+</h:head>
+
+<h:body class="container full-width row blue-grey lighten-5">
 	<br></br>
 		
 	#{indexController.validar()}	
 		
-			<div class="container full-width col s12 m12 l12" style="max-width:500px;">
-<!-- 			<fieldset class="row"> -->
-<!-- 				<legend>Acesso Sistema</legend> -->
+			<div class="container full-width col s12 m12 l12"
+		style="max-width: 500px;">
+		<!-- 			<fieldset class="row"> -->
+		<!-- 				<legend>Acesso Sistema</legend> -->
 
-				<h:form id="formulario_login" method="post" action="#">
-				
-					<div class="input-field col s12 m12 l12">
-						<div class="input-field col s12 m12 l12">
-							<h:inputText id="apelido" name="apelido" type="text" class="validate" required="required"
-							value="#{loginController.apelido}"	maxlength="30">
-								<f:ajax event="change" />
-							</h:inputText>
-							<h:outputLabel for="apelido" value="Login" />
-						</div>
-							<h:outputLabel id="msg_apelido" value="#{loginController.msgApelido}" />
-					</div>
-					
-					<div class="input-field col s12 m12 l12">
-						<div class="input-field col s12 m12 l12">
-							<h:inputSecret id="senha" name="senha" class="validate" required="required"
-							value="#{loginController.senha}" maxlength="30">
-								<f:ajax event="change" />
-							</h:inputSecret>
-							<h:outputLabel for="senha" value="Senha" />
-						</div>
-							<h:outputLabel id="msg_senha" value="#{loginController.msgSenha}" />
-					</div>
-					
-					<div class="container full-width col s12 m12 l12">
-						<fieldset class="row blue-grey lighten-4">
-<!-- 							<legend>Não tenho cadastro</legend> -->
+		<h:form id="formulario_login" method="post" action="#">
 
-							<div class="col s12 m12 l12">
-								<h:commandLink actionListener="#{indexController.setCentro('cadastro_acesso.xhtml')}" action="index.xhtml?faces-redirect=true"
-								value="Realizar Cadastro" rendered="#{!cadastroAcessoController.logado}" />
-							</div>
-						</fieldset>
-					</div>
-	
-					<div class="row center">
-					
-						<h:commandButton class="waves-effect grey darken-2 white-text btn-small" value="Entrar" 
-						actionListener="#{loginController.login()}">
-							<f:ajax event="action" listener="#{indexController.setCentro('landing_page.xhtml')}" render="msg_apelido msg_senha" />
-						</h:commandButton>
-						
-						<h:commandButton id="tt" class="waves-effect grey darken-2 white-text btn-small" value="Limpar" 
-						actionListener="#{indexController.setCentro('login.xhtml')}" />
-						
-						<h:commandLink class="waves-effect grey darken-2 white-text btn-small" value="Início" 
-						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
-							<f:ajax event="action" listener="#{indexController.recarregar()}" />
-						</h:commandLink>
-						
-					</div>
-					<br></br>
-					<br></br>
-										
-				</h:form>
-				
-<!-- 			</fieldset> -->
-		</div>
+			<div class="col s12 m12 l12">
+				<h:outputLabel for="apelido" value="Login" />
+				<div class="col s12 m12 l12">
+					<h:inputText id="apelido" name="apelido" type="text"
+						class="validate" required="required"
+						value="#{loginController.apelido}" maxlength="30">
+						<f:ajax event="change" />
+					</h:inputText>
+				</div>
+			</div>
 
-	</h:body>
+			<div class="col s12 m12 l12">
+				<h:outputLabel for="senha" value="Senha" />
+				<div class="col s12 m12 l12">
+					<h:inputSecret id="senha" name="senha" class="validate"
+						required="required" value="#{loginController.senha}"
+						maxlength="30">
+						<f:ajax event="change" />
+					</h:inputSecret>
+				</div>
+				<h:outputLabel id="msg_apelido"
+					value="#{loginController.msgApelido}" />
+				<h:outputLabel id="msg_senha" value="#{loginController.msgSenha}" />
+			</div>
+
+			<div class="container full-width col s12 m12 l12">
+				<fieldset class="row blue-grey lighten-4">
+					<!-- 							<legend>Não tenho cadastro</legend> -->
+
+					<div class="col s12 m12 l12">
+						<h:commandLink
+							actionListener="#{indexController.setCentro('cadastro_acesso.xhtml')}"
+							action="index.xhtml?faces-redirect=true"
+							value="Realizar Cadastro"
+							rendered="#{!cadastroAcessoController.logado}" />
+					</div>
+				</fieldset>
+			</div>
+
+			<div class="row center">
+
+				<h:commandButton styleClass="btn btn-primiry btn-lg" value="Entrar"
+					actionListener="#{loginController.login()}">
+					<f:ajax event="action"
+						listener="#{indexController.setCentro('landing_page.xhtml')}"
+						render="msg_apelido msg_senha" />
+				</h:commandButton>
+				&nbsp;
+				<h:commandButton id="tt" styleClass="btn btn-primiry btn-lg"
+					value="Limpar"
+					actionListener="#{indexController.setCentro('login.xhtml')}" />
+				&nbsp;
+				<h:commandLink styleClass="btn btn-primiry btn-lg" value="Início"
+					actionListener="#{indexController.setCentro('landing_page.xhtml')}">
+					<f:ajax event="action" listener="#{indexController.recarregar()}" />
+				</h:commandLink>
+
+			</div>
+			<br></br>
+			<br></br>
+
+		</h:form>
+
+		<!-- 			</fieldset> -->
+	</div>
+
+</h:body>
 </html>

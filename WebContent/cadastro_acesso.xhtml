@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
@@ -53,32 +54,43 @@
 						</div>
 					</div>
 
-					<div class="input-field col s12 m5 l6">
+					<div class="col s12 m5 l6">
+						<label for="nome">Nome</label>
 						<h:inputText id="nome" name="nome" type="text" class="validate"
 							required="required"
 							value="#{cadastroAcessoController.usuario.pessoa.nome}"
 							maxlength="30" onkeypress="mascara(this,capitalizer)">
 							<f:ajax event="change" />
 						</h:inputText>
-						<label for="nome">Nome</label>
 					</div>
 
-					<h:form id="form" enctype="multipart/form-data">
-						<h:inputFile id="file" value="#{arquivoBean.arquivo}" />
-						<h:commandButton value="Upload" action="#{arquivoBean.upload}" />
+					<!-- 					<h:form id="form" enctype="multipart/form-data"> -->
+					<!-- 						<h:inputFile id="file" value="#{arquivoBean.arquivo}" /> -->
+					<!-- 						<h:commandButton value="Upload" action="#{arquivoBean.upload}" /> -->
+					<!-- 					</h:form> -->
+					<h:form>
+						<p:fileUpload id="upload" update="foto"
+							fileUploadListener="#{uploadImagem.fileUploadAction}" auto="true" />
+							<h:commandButton value="Upload" action="#{upLoadImagem.fileUploadAction}" />
 					</h:form>
 
-					<div class="input-field col s12 m7 l6">
+					<!-- 					<h:form> -->
+					<!-- 						<p:fileUpload fileUploadListener="#{uploadAvancadoBean.upload}" /> -->
+					<!-- 					</h:form> -->
+
+					<div class="col s12 m7 l6">
+						<label for="sobrenome">Sobrenome</label>
 						<h:inputText id="sobrenome" name="sobrenome" type="text"
 							class="validate" required="required"
 							value="#{cadastroAcessoController.usuario.pessoa.nomeAuxiliar}"
 							maxlength="30" onkeypress="mascara(this,capitalizer)">
 							<f:ajax event="change" />
 						</h:inputText>
-						<label for="sobrenome">Sobrenome</label>
 					</div>
 
-					<div class="input-field col s12 m6 l6">
+					<div class="col s12 m6 l6">
+						<h:outputLabel for="doc" id="doc_label"
+							value="#{cadastroAcessoController.usuario.pessoa.tipoPessoa.nome eq 'Fisica' ? 'CPF' : 'CNPJ'}" />
 						<h:inputText disabled="#{cadastroAcessoController.logado}"
 							id="doc" name="doc" type="text" class="validate"
 							required="required" maxlength="14"
@@ -86,19 +98,18 @@
 							onkeypress="return mascaraGenerica(event, this, '#{cadastroAcessoController.usuario.pessoa.tipoPessoa.mascara}');">
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="doc" id="doc_label"
-							value="#{cadastroAcessoController.usuario.pessoa.tipoPessoa.nome eq 'Fisica' ? 'CPF' : 'CNPJ'}" />
 					</div>
 
 					<!-- 						implementar -->
-					<div class="input-field col s12 m7 l6">
+					<div class="col s12 m7 l6">
+						<label for="telefone">Celular</label>
 						<h:inputText id="telefone" name="telefone" type="text"
 							class="validate" required="required"
 							value="#{cadastroAcessoController.usuario.pessoa.telefone}"
-							maxlength="11" onkeypress="return mascaraGenerica(event, this, '(##)#####-####');">
+							maxlength="11"
+							onkeypress="return mascaraGenerica(event, this, '(##)#####-####');">
 							<f:ajax event="change" />
 						</h:inputText>
-						<label for="telefone">Celular</label>
 					</div>
 
 					<!-- 					</fieldset> -->
@@ -122,22 +133,22 @@
 					</div>
 
 					<div class="row col s12 m12 l12">
-						<div class="input-field col s12 m6 l6">
+							<label for="senha">Senha</label>
+						<div class="col s12 m6 l6">
 							<h:inputSecret id="senha" name="senha" class="validate"
 								required="required"
 								value="#{cadastroAcessoController.usuario.senha}" maxlength="10">
 								<f:ajax event="change" />
 							</h:inputSecret>
-							<label for="senha">Senha</label>
 						</div>
 
-						<div class="input-field col s12 m6 l6">
+						<div class="col s12 m6 l6">
+							<label for="conf-senha">Confirmar senha</label>
 							<h:inputSecret id="conf-senha" name="conf-senha" class="validate"
 								required="required"
 								value="#{cadastroAcessoController.senhaConfirma}" maxlength="10">
 								<f:ajax event="change" />
 							</h:inputSecret>
-							<label for="conf-senha">Confirmar senha</label>
 						</div>
 
 						<div class="col s12 m6 l6">
@@ -164,10 +175,8 @@
 						value="#{cadastroAcessoController.mensagem.saida}" />
 				</div>
 
-				<div class="col s12 m12 l12 center">
-					<h:commandButton
-						styleClass="btn btn-primiry btn-lg"
-						value="Salvar"
+				<div class="col s12 m12 l12 center " >
+					<h:commandButton styleClass="btn btn-primiry btn-lg "  value="Salvar"
 						onclick="if (! confirm('Deseja salvar?')) return false"
 						actionListener="#{cadastroAcessoController.salvar()}">
 						<f:ajax event="action"
@@ -175,17 +184,15 @@
 							render="mensagem" />
 
 					</h:commandButton>
-					<h:commandButton
-						styleClass="btn btn-primiry btn-lg"
-						value="Limpar"
+				  &nbsp;
+					<h:commandButton styleClass="btn btn-primiry btn-lg" value="Limpar"
 						actionListener="#{cadastroAcessoController.construir()}"
 						rendered="#{!cadastroAcessoController.logado}">
 						<f:ajax event="action"
 							listener="#{cadastroAcessoController.recarregar()}" />
 					</h:commandButton>
-					<h:commandButton
-						styleClass="btn btn-primiry btn-lg"
-						value="Início"
+					&nbsp;
+					<h:commandButton styleClass="btn btn-primiry btn-lg" value="Início"
 						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
 						<f:ajax event="action"
 							listener="#{cadastroAcessoController.recarregar()}" />

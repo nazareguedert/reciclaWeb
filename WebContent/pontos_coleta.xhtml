@@ -105,16 +105,16 @@
 
 
 						<h:column>
-							<f:facet name="header">Coletar</f:facet>
-							<h:commandButton value="Confirma" immediate="true" type="button"
-								class="waves-effect orange darken-2 white-text btn-small"
+							<f:facet name="header">Solicitar</f:facet>
+							<h:commandButton value="Solicitar" immediate="true" type="button"
+								styleClass="btn btn-primiry btn-lg"
 								disabled="#{!pontosColetaController.outroDoador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}"
 								actionListener="#{pontosColetaController.finalizarDoacao(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getId())}">
 								<f:setPropertyActionListener
 									value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
-									target="#{cadastroDoacaoController.doacao}" />
+									target="#{pontosColetaController.finalizarDoacao}" />
 								<f:ajax event="action"
-									listener="#{pontosColetaController.recarregar}" />
+									listener="#{listaColetaController.recarregar}" />
 							</h:commandButton>
 						</h:column>
 						

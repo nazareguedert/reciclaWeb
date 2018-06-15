@@ -82,7 +82,7 @@
 							<f:facet name="header">Detalhes</f:facet>
 							<h:commandButton disabled="false" value="Detalhes"
 								immediate="true"
-								class="waves-effect grey darken-2 white-text btn-small"
+								styleClass="btn btn-primiry btn-lg"
 								actionListener="#{indexController.setCentro('detalhes_coleta.xhtml')}">
 								<f:setPropertyActionListener
 									value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
@@ -107,10 +107,10 @@
 						</h:column>
 
 						<h:column>
-							<f:facet name="header">Lista de Impressão</f:facet>
-							<h:commandButton disabled="false" value="Excluir"
+							<f:facet name="header">Retirar da Listar</f:facet>
+							<h:commandButton disabled="false" value="Retirar"
 								immediate="true"
-								class="waves-effect grey darken-2 white-text btn-small"
+								styleClass="btn btn-primiry btn-lg"
 								actionListener="#{indexController.setCentro('detalhes_coleta.xhtml')}">
 								<f:setPropertyActionListener
 									value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
@@ -141,16 +141,17 @@
 				<br></br>
 				<div class="col s12 m12 l12 center">
 					<h:commandButton
-						class="waves-effect grey darken-2 white-text btn-small"
+						styleClass="btn btn-primiry btn-lg"
 						value="Início"
 						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
 						<f:ajax event="action"
 							listener="#{pontosColetaController.recarregar}" />
 					</h:commandButton>
+					&nbsp;
 					<h:commandButton
-						class="waves-effect grey darken-2 white-text btn-small"
+						styleClass="btn btn-primiry btn-lg"
 						value="Imprimir"
-						actionListener="#{indexController.setCentro('landing_page.xhtml')}">
+						actionListener="#{indexController.setCentro('imprimir_coleta.xhtml')}">
 						<f:ajax event="action"
 							listener="#{pontosColetaController.recarregar}" />
 					</h:commandButton>
