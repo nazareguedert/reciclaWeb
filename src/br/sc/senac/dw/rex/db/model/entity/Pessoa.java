@@ -14,6 +14,8 @@ public class Pessoa {
 	private String telefone;
 	private Date dataInclusao;
 	private Date dataRemocao;
+	private byte[] imagem;
+	
 
 	public Pessoa() {
 		super();
@@ -29,35 +31,6 @@ public class Pessoa {
 		this.email = email;
 		this.endereco = endereco;
 		this.telefone = telefone;
-	}
-
-	
-	public Pessoa(Long id, TipoPessoa tipoPessoa, String doc, String nome, String nomeAuxiliar, String email,
-			Endereco endereco, String telefone) {
-		super();
-		this.id = id;
-		this.tipoPessoa = tipoPessoa;
-		this.doc = doc;
-		this.nome = nome;
-		this.nomeAuxiliar = nomeAuxiliar;
-		this.email = email;
-		this.endereco = endereco;
-		this.telefone = telefone;
-	}
-
-	public Pessoa(Long id, TipoPessoa tipoPessoa, String doc, String nome, String nomeAuxiliar, String email,
-			Endereco endereco, String telefone, Date dataInclusao, Date dataRemocao) {
-		super();
-		this.id = id;
-		this.tipoPessoa = tipoPessoa;
-		this.doc = doc;
-		this.nome = nome;
-		this.nomeAuxiliar = nomeAuxiliar;
-		this.email = email;
-		this.endereco = endereco;
-		this.telefone = telefone;
-		this.dataInclusao = dataInclusao;
-		this.dataRemocao = dataRemocao;
 	}
 
 	public Long getId() {
@@ -140,6 +113,14 @@ public class Pessoa {
 		this.dataRemocao = dataRemocao;
 	}
 
+	public byte[] getImagem() {
+		return imagem;
+	}
+	
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -154,6 +135,7 @@ public class Pessoa {
 		result = prime * result + ((nomeAuxiliar == null) ? 0 : nomeAuxiliar.hashCode());
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		result = prime * result + ((tipoPessoa == null) ? 0 : tipoPessoa.hashCode());
+		result = prime * result + ((imagem == null) ? 0 : imagem.hashCode());
 		return result;
 	}
 
@@ -216,6 +198,11 @@ public class Pessoa {
 				return false;
 		} else if (!tipoPessoa.equals(other.tipoPessoa))
 			return false;
+		if (imagem == null) {
+			if (other.imagem != null)
+				return false;
+		} else if (!imagem.equals(other.imagem))
+			return false;
 		return true;
 	}
 
@@ -225,5 +212,6 @@ public class Pessoa {
 				+ nomeAuxiliar + ", email=" + email + ", endereco=" + endereco + ", telefone=" + telefone
 				+ ", dataInclusao=" + dataInclusao + ", dataRemocao=" + dataRemocao + "]";
 	}
+
 
 }

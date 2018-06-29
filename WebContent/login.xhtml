@@ -55,17 +55,16 @@
 			</div>
 
 			<div class="container full-width col s12 m12 l12">
-				<fieldset class="row blue-grey lighten-4">
-					<!-- 							<legend>Não tenho cadastro</legend> -->
-
-					<div class="col s12 m12 l12">
-						<h:commandLink
+<!-- 				<fieldset class="row center"> -->
+<br />
+					<div class="col s12 m12 l12 row center">
+						<h:commandLink styleClass="btn btn-primiry grey darken-2"
 							actionListener="#{indexController.setCentro('cadastro_acesso.xhtml')}"
 							action="index.xhtml?faces-redirect=true"
 							value="Realizar Cadastro"
 							rendered="#{!cadastroAcessoController.logado}" />
 					</div>
-				</fieldset>
+<!-- 				</fieldset> -->
 			</div>
 
 			<div class="row center">
@@ -92,7 +91,6 @@
 
 		</h:form>
 
-		<!-- 			</fieldset> -->
 	</div>
 
 </h:body>

@@ -110,6 +110,7 @@
 								styleClass="btn btn-primiry btn-lg"
 								disabled="#{!pontosColetaController.outroDoador(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getDoador().getId())}"
 								actionListener="#{pontosColetaController.finalizarDoacao(pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item)).getId())}">
+								
 								<f:setPropertyActionListener
 									value="#{pontosColetaController.pontosColeta.get(pontosColetaController.pontosColeta.indexOf(item))}"
 									target="#{pontosColetaController.finalizarDoacao}" />

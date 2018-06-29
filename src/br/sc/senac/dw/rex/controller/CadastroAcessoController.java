@@ -1,14 +1,22 @@
 package br.sc.senac.dw.rex.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
+import org.primefaces.model.UploadedFile;
+
+import br.sc.senac.dw.rex.componentes.Upload;
 import br.sc.senac.dw.rex.db.model.NivelAcessoDAO;
 import br.sc.senac.dw.rex.db.model.PessoaDAO;
 import br.sc.senac.dw.rex.db.model.TipoPessoaDAO;
@@ -23,9 +31,6 @@ import br.sc.senac.dw.rex.db.model.entity.Usuario;
 @SessionScoped
 public class CadastroAcessoController implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3954387121126466912L;
 
 	private CadastroAcessoMensagem mensagem;
@@ -46,6 +51,8 @@ public class CadastroAcessoController implements Serializable {
 
 	private NivelAcessoDAO nivelAcessoDAO;
 	private List<NivelAcesso> niveisTiposUsuario;
+
+	private Part uploadedPhoto;
 
 	public CadastroAcessoController() {
 		super();
@@ -108,6 +115,14 @@ public class CadastroAcessoController implements Serializable {
 		this.niveisTiposUsuario = niveisTiposUsuario;
 	}
 
+	public Part getUploadedPhoto() {
+		return uploadedPhoto;
+	}
+
+	public void setUploadedPhoto(Part uploadedPhoto) {
+		this.uploadedPhoto = uploadedPhoto;
+	}
+
 	public void construir() {
 
 		this.mensagem = new CadastroAcessoMensagem();
@@ -153,23 +168,16 @@ public class CadastroAcessoController implements Serializable {
 		boolean campoPreencher = this.mensagem.produzMensagem(this.usuario, this.senhaConfirma);
 
 		if (!campoPreencher) {
-
+		
 			this.mensagem.setSaida("");
-			
-//			 Long idUsuario = this.acessoBO.salvarUsuario(this.usuario);
-//			 System.out.println(idUsuario);
-//			 if(this.usuario.getId() == null) {
-//				 this.usuario.setId(idUsuario);
-//				 this.logado=true;
-//			 }
 
 			if (this.usuario.getId() != null) {
-
 				pessoaDAO.alterar(this.usuario.getPessoa());
 				usuarioDAO.alterar(this.usuario);
 
 			} else {
 
+				this.getUsuario().getPessoa().setDataInclusao(new Date());
 				Long idPessoa = pessoaDAO.inserir(this.usuario.getPessoa());
 
 				this.usuario.getPessoa().setId(idPessoa);
@@ -179,16 +187,16 @@ public class CadastroAcessoController implements Serializable {
 				this.logado = true;
 
 			}
-			
+
 			this.usuario.setSenha("");
 			this.senhaConfirma = "";
 			this.recarregar();
 		}
 
 	}
-	
-	public boolean logadoEColetor () {
-		
+
+	public boolean logadoEColetor() {
+
 		if (this.logado && this.getUsuario().getNivelAcesso().getNome().equals("Coletor")) {
 			return true;
 		} else {
@@ -196,13 +204,73 @@ public class CadastroAcessoController implements Serializable {
 		}
 	}
 
-	
-public boolean logadoEDoador () {
-		
+	public boolean logadoEDoador() {
+
 		if (this.logado && this.getUsuario().getNivelAcesso().getNome().equals("Doador")) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+
+	public void upload() {
+		try {
+
+//			byte[] bytes = null;
+		
+
+			if (uploadedPhoto != null) {
+				InputStream partInputStream = uploadedPhoto.getInputStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] bytesImagem = new byte[4096];
+				int amountRead;
+				while ((amountRead = partInputStream.read(bytesImagem)) != -1) {
+					outputStream.write(bytesImagem, 0, amountRead);
+				}
+				if (outputStream.size() > 0) {
+//					bytes = outputStream.toByteArray();	
+					usuario.getPessoa().setImagem(bytesImagem);
+				}
+			}
+			//Já atualiza a foto da pessoa no BD -> TODO ver com o Nilton porque não salva
+			pessoaDAO.alterar(this.usuario.getPessoa());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+//		try {
+//            UploadController upload = UploadController.getInstance();
+//            upload.write(uploadedPhoto);
+//            usuario.getPessoa().setImagem(uploadedPhoto.getSubmittedFileName());            
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+		
+	}
+
+	// public void salvaImagemNaPasta(FileUploadEvent event) {
+	// file = event.getFile();
+	//
+	// if (file != null) {
+	//
+	// File file1 = new File("D:\\usuario\\desktop\\upload", file.getFileName());
+	// try {
+	// FileOutputStream fos = new FileOutputStream(file1);
+	// fos.write(event.getFile().getContents());
+	// fos.close();
+	//
+	// FacesContext instance = FacesContext.getCurrentInstance();
+	// instance.addMessage("mensagens", new FacesMessage(FacesMessage.SEVERITY_INFO,
+	// file.getFileName() + " anexado com sucesso", null));
+	// } catch (FileNotFoundException e) {
+	// e.printStackTrace();
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	//
+	//
+	// }
+	// }
+
 }

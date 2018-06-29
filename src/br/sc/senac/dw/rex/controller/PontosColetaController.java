@@ -196,13 +196,15 @@ public class PontosColetaController implements Serializable {
 	}
 	
 
-	public void finalizarDoacao(Long doacao) throws Exception {
+	public void finalizarDoacao(Long idDoacao) throws Exception {
 		
-		Doacao d = this.doacaoDAO.getPorId(doacao);
+		Doacao d = this.doacaoDAO.getPorId(idDoacao);
 		d.setColetor(this.cadastroAcessoController.getUsuario());
 		d.setStatusDoacao(statusDoacaoDAO.get("Encerrado"));
 		this.doacaoDAO.alterar(d);
-		this.doacaoDAO.excluir(doacao);
+		
+		//TODO verificar PORQUE A DOACAO É EXCLUÍDA
+		//this.doacaoDAO.excluir(idDoacao);
 		EnviaSMS.send("48996465546", "Teste - solicitar doação...");
 	}
 	

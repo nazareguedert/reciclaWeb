@@ -83,16 +83,24 @@
 	</filter-mapping>
 
 
-<!-- Upload de imagens -->
+	<!-- Upload de imagens -->
 	<filter>
-		<filter-name>PrimeFaces FileUploadFilter</filter-name>
-
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
 	</filter>
-
 	<filter-mapping>
-		<filter-name>PrimeFaces FileUploadFilter</filter-name>
-		<servlet-name>FacesServlet</servlet-name>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
 	</filter-mapping>
+	
+<!-- 	<context-param> -->
+<!-- 		<param-name>primefaces.UPLOADER</param-name> -->
+<!-- 		<param-value>commons</param-value> -->
+<!-- 	</context-param> -->
+
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>PrimeFaces FileUploadFilter</filter-name> -->
+<!-- 		<servlet-name>FacesServlet</servlet-name> -->
+<!-- 	</filter-mapping> -->
 
 </web-app>

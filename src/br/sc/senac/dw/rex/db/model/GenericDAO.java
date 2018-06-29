@@ -41,7 +41,6 @@ public abstract class GenericDAO<O extends Object, Z extends Object> implements 
 
 	public GenericDAO(String banco, String tabela, String key, O o, Z z) {
 		this.banco();
-		
 
 		this.banco = banco;
 		this.tabela = tabela;
@@ -333,6 +332,8 @@ public abstract class GenericDAO<O extends Object, Z extends Object> implements 
 	public Boolean alterar(Z objeto) {
 
 		O ob = toDB(objeto);
+		//TODO perguntar para o Nilton: como escolher quais campos serão alterados em uma entidade?
+		//Exemplo: o atributo 'imagem' não é atualizado em Pessoa
 		Field[] campos = getSelectedFields(ob);
 
 		String sql;

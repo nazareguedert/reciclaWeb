@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -24,7 +25,7 @@ import br.sc.senac.dw.rex.filtro.FiltroAnuncio;
 @Named
 @ViewScoped
 public class ListaColetaController implements Serializable {
-	
+
 	private static final long serialVersionUID = -6897894005275833868L;
 
 	private CadastroAcessoController cadastroAcessoController;
@@ -49,6 +50,8 @@ public class ListaColetaController implements Serializable {
 
 	private BairroDAO bairroDAO;
 	private List<Bairro> bairros;
+	
+	UIData tabelaDoacoes;
 
 	@Inject
 	public void PontosColetaController(CadastroAcessoController cadastroAcessoController) {
@@ -106,11 +109,11 @@ public class ListaColetaController implements Serializable {
 	public List<Doacao> getPontosSelecionados() {
 		return pontosSelecionados;
 	}
-	
+
 	public List<Doacao> getPontosListar() {
 		return pontosListar;
 	}
-	
+
 	public void setPontosListar(List<Doacao> pontosListar) {
 		this.pontosListar = pontosListar;
 	}
@@ -204,7 +207,7 @@ public class ListaColetaController implements Serializable {
 		this.doacaoDAO.alterar(d);
 		this.doacaoDAO.excluir(doacao);
 	}
-	
+
 	public List<Doacao> getPontosColetaDoUsuario() {
 
 		List<Doacao> coletas = doacaoDAO.listarTodos();
@@ -220,5 +223,14 @@ public class ListaColetaController implements Serializable {
 		return coletasDoUsuarioLogado;
 	}
 
+	public String excluir() {
+		// this.doacaoDAO.excluir(this.doacao.getId());
+		// this.construir();
+		// }
+		Doacao doacao = (Doacao) FacesContext.getCurrentInstance().getExternalContext().getRequestMap()
+				.get(tabelaDoacoes.getVar());
+		/* Excluir... */
+		return "SUCCESS";
+	}
 
 }

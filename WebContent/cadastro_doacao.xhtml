@@ -75,8 +75,8 @@
 								<h:commandButton value="Consultar"
 									styleClass="btn btn-primiry btn-lg">
 									<f:ajax event="click"
-										listener="#{cadastroDoacaoController.consultar()}"
-										render="formulario municipio" />
+										listener="#{cadastroDoacaoController.consultar}"
+										render="cep" />
 								</h:commandButton>
 							</div>
 						</div>
@@ -316,7 +316,7 @@
 					<h:commandButton styleClass="btn btn-primiry btn-lg"
 						value="Excluir"
 						onclick="if (! confirm('Deseja apagar?')) return false"
-						actionListener="#{cadastroDoacaoController.excluir}"
+						actionListener="#{cadastroDoacaoController.excluir()}"
 						rendered="#{cadastroDoacaoController.doacao.id ne null}">
 						<f:ajax event="action"
 							listener="#{cadastroDoacaoController.recarregar}" />

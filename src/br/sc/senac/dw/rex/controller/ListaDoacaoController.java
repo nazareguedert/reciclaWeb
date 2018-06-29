@@ -191,6 +191,21 @@ public class ListaDoacaoController implements Serializable{
 		this.doacaoDAO.alterar(d);
 		this.doacaoDAO.excluir(doacao);
 	}
+	
+	public List<Doacao> getPontosColetaDoUsuario() {
+
+		List<Doacao> listaDoacao = doacaoDAO.listarTodos();
+		List<Doacao> coletasDoUsuarioLogado = new ArrayList<>();
+
+		for (Doacao doacao : listaDoacao) {
+			if (doacao.getDoador() != null && doacao.getDoador().getId() != null
+					&& this.cadastroAcessoController.getUsuario().getId() == doacao.getDoador().getId()) {
+				coletasDoUsuarioLogado.add(doacao);
+			}
+		}
+
+		return coletasDoUsuarioLogado;
+	}
 
 }
 

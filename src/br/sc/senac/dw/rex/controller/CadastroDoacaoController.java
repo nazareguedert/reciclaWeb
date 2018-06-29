@@ -427,7 +427,6 @@ public class CadastroDoacaoController implements Serializable {
 	
 	private Municipio getMunicipioPorNome(String nomeMunicipio) {
 		for(Municipio m: this.municipios) {
-			//TODO verificar o cadastro dos NOMES (acentos, case sensitive, etc.)
 			if(m.getNome().equals(nomeMunicipio)) {
 				return m;
 			}

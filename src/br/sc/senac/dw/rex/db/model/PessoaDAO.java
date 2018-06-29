@@ -12,43 +12,45 @@ public class PessoaDAO extends GenericDAO<PessoaDB, Pessoa> {
 	}
 
 	@Override
-	public PessoaDB toDB(Pessoa i) {
-		PessoaDB o = new PessoaDB();
+	public PessoaDB toDB(Pessoa pessoa) {
+		PessoaDB pessoaDb = new PessoaDB();
 
-		o.setId(i.getId());
-		o.setTipo_pessoa(i.getTipoPessoa().getId());
-		o.setDoc(i.getDoc());
-		o.setNome(i.getNome());
-		o.setNome_auxiliar(i.getNomeAuxiliar());
-		o.setEmail(i.getEmail());
-		
-		if(i.getEndereco() != null) {
-			o.setEndereco(i.getEndereco().getId());
+		pessoaDb.setId(pessoa.getId());
+		pessoaDb.setTipo_pessoa(pessoa.getTipoPessoa().getId());
+		pessoaDb.setDoc(pessoa.getDoc());
+		pessoaDb.setNome(pessoa.getNome());
+		pessoaDb.setNome_auxiliar(pessoa.getNomeAuxiliar());
+		pessoaDb.setEmail(pessoa.getEmail());
+
+		if(pessoa.getEndereco() != null) {
+			pessoaDb.setEndereco(pessoa.getEndereco().getId());
 		}
-		
-		o.setTelefone(i.getTelefone());
-		o.setData_inclusao(i.getDataInclusao());
-		o.setData_remocao(i.getDataRemocao());
 
-		return o;
+		pessoaDb.setTelefone(pessoa.getTelefone());
+		pessoaDb.setData_inclusao(pessoa.getDataInclusao());
+		pessoaDb.setData_remocao(pessoa.getDataRemocao());
+		pessoaDb.setImagem(pessoa.getImagem());
+
+		return pessoaDb;
 	}
 
 	@Override
-	public Pessoa fromDB(PessoaDB i) {
-		Pessoa o = new Pessoa();
+	public Pessoa fromDB(PessoaDB pessoaDb) {
+		Pessoa pessoa = new Pessoa();
 
-		o.setId(i.getId());
-		o.setTipoPessoa(new TipoPessoaDAO().getPorId(i.getTipo_pessoa()));
-		o.setDoc(i.getDoc());
-		o.setNome(i.getNome());
-		o.setNomeAuxiliar(i.getNome_auxiliar());
-		o.setEmail(i.getEmail());
-		o.setEndereco(new EnderecoDAO().getPorId(i.getEndereco()));
-		o.setTelefone(i.getTelefone());
-		o.setDataInclusao(i.getData_inclusao());
-		o.setDataRemocao(i.getData_remocao());
+		pessoa.setId(pessoaDb.getId());
+		pessoa.setTipoPessoa(new TipoPessoaDAO().getPorId(pessoaDb.getTipo_pessoa()));
+		pessoa.setDoc(pessoaDb.getDoc());
+		pessoa.setNome(pessoaDb.getNome());
+		pessoa.setNomeAuxiliar(pessoaDb.getNome_auxiliar());
+		pessoa.setEmail(pessoaDb.getEmail());
+		pessoa.setEndereco(new EnderecoDAO().getPorId(pessoaDb.getEndereco()));
+		pessoa.setTelefone(pessoaDb.getTelefone());
+		pessoa.setDataInclusao(pessoaDb.getData_inclusao());
+		pessoa.setDataRemocao(pessoaDb.getData_remocao());
+		pessoa.setImagem(pessoaDb.getImagem());
 
-		return o;
+		return pessoa;
 	}
 }
 
@@ -64,13 +66,14 @@ class PessoaDB {
 	private String telefone;
 	private Date data_inclusao;
 	private Date data_remocao;
+	private byte[] imagem;
 
 	public PessoaDB() {
 		super();
 	}
 
 	public PessoaDB(Long id, Long tipo_pessoa, String doc, String nome, String nome_auxiliar, String email,
-			Long endereco, String telefone, Date data_inclusao, Date data_remocao) {
+			Long endereco, String telefone, Date data_inclusao, Date data_remocao, byte[] imagem) {
 		super();
 		this.id = id;
 		this.tipo_pessoa = tipo_pessoa;
@@ -82,6 +85,7 @@ class PessoaDB {
 		this.telefone = telefone;
 		this.data_inclusao = data_inclusao;
 		this.data_remocao = data_remocao;
+		this.imagem = imagem;
 	}
 
 	public Long getId() {
@@ -178,6 +182,7 @@ class PessoaDB {
 		result = prime * result + ((nome_auxiliar == null) ? 0 : nome_auxiliar.hashCode());
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		result = prime * result + ((tipo_pessoa == null) ? 0 : tipo_pessoa.hashCode());
+		result = prime * result + ((imagem == null) ? 0 : imagem.hashCode());
 		return result;
 	}
 
@@ -240,7 +245,20 @@ class PessoaDB {
 				return false;
 		} else if (!tipo_pessoa.equals(other.tipo_pessoa))
 			return false;
+		if (imagem == null) {
+			if (other.imagem != null)
+				return false;
+		} else if (!imagem.equals(other.imagem))
+			return false;
 		return true;
+	}
+
+	public byte[] getImagem() {
+		return imagem;
+	}
+	
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
 	}
 
 	@Override
@@ -249,5 +267,6 @@ class PessoaDB {
 				+ ", nome_auxiliar=" + nome_auxiliar + ", email=" + email + ", endereco=" + endereco + ", telefone="
 				+ telefone + ", data_inclusao=" + data_inclusao + ", data_remocao=" + data_remocao + "]";
 	}
+
 
 }
